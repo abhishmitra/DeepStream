@@ -25,7 +25,7 @@ from math import log10
 
 
 profanity = ['fuck','asshole','sex','faggot','negro','nigger','boob','tit']
-@route('/login')
+@route('/')
 def login_form():
     return ''' <a href= /about>About</a>
                 <center><br><br><br><br><img src="https://lh5.googleusercontent.com/-cjODD9V7AXI/UerIKznIVNI/AAAAAAAAAaU/dSi288GNIr4/w500-h229-no/PaceByte.png" width = 500px><br><br>
