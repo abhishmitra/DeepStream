@@ -1,8 +1,7 @@
 # -*- coding: cp1252 -*-
 import codecs
 from bottle import route, run, template, request
-import Tkinter
-from Tkinter import *
+
 import turtle
 import time
 from xgoogle.search import GoogleSearch, SearchError
