@@ -2,7 +2,6 @@
 import codecs
 from bottle import route, run, template, request
 import time
-from xgoogle.search import GoogleSearch, SearchError
 import urllib2
 import urllib
 import json as m_json
