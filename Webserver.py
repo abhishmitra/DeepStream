@@ -1,8 +1,6 @@
 # -*- coding: cp1252 -*-
 import codecs
 from bottle import route, run, template, request
-
-import turtle
 import time
 from xgoogle.search import GoogleSearch, SearchError
 import urllib2
