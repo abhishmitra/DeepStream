@@ -485,7 +485,7 @@ def ScienceSearch():
                 URL = url
                 try:
                     for i in dem:
-                            return "Hello There"
+                            
                             Mains = (Mains  +"</center>" + i.text + "<br><br> ")
                             string = (Heading +"<font size = 6 color = #0080FF><u>"+"Application:<br>"+"</u></font>" + Application + "<br><br>" +"<font size = 6 color = #0080FF><u>Main Content:</u></font><br><br>"+ Mains)
                             
