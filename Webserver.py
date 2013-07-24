@@ -147,7 +147,7 @@ def PeopleSearch():
     
     #First Search
     
-    query = urllib.urlencode ( { 'q' : 'who is '+query } )
+    query = urllib.urlencode ( { 'q' : 'biography '+query } )
     
     
     response = urllib.urlopen ( 'http://ajax.googleapis.com/ajax/services/search/web?v=1.0&' + query ).read()
