@@ -146,7 +146,7 @@ def PeopleSearch():
     jet = " "
     
     #First Search
-    return "Hellotheredude"
+    
     query = urllib.urlencode ( { 'q' : 'who is '+query } )
     
     
@@ -338,10 +338,7 @@ def PeopleSearch():
                                         except Exception,err:
                                             continue
                                         string = (Heading +"<font size = 6 color = #0080FF><u>"+"Summary:<br>"+"</u></font>" +summary + "<br><br>" + "<font size = 6 color = #0080FF><u>Education:</u></font><br>" +Education + "<br><br>" + "<font size = 6 color = #0080FF><u>Career:</u></font><br>" + Career + "<br><br>" + Main + "<br><br>" +"<center>" +End+"</center>")
-                                        file = open('/Py/SummarySearch.html', 'w')
-                                        a = string.encode('utf-8')
-                                        file.write(a) 
-                                        file.flush()
+                                        
 
                                         #querycurs.execute('UPDATE Data1 SET info =? WHERE q =?',(string,raw))
                                         #CreateDB.commit()
@@ -429,7 +426,6 @@ def ScienceSearch():
     k = 0
     v = 0
     Abst = "Nothing Here"
-    file = open('/Py/testfile.html','w')
     jet = " "
     
     #First Search
