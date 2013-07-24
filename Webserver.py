@@ -175,7 +175,6 @@ def PeopleSearch():
                 URL = url
                 try:
                     for i in dem:
-                    #Filter
                       if (i.text) not in string:
                          for k in range (l ,QSL-1):
                             if len(i.text)not in range(0,150):
@@ -184,11 +183,11 @@ def PeopleSearch():
                                     if ("http") not in i.text:
                                         for a in range (0,8):
                                             if adjEdu[a] in (i.text):
-                                                Education = (Education + i.text + "<br><br>")
-                                                print Education
+                                                    Education = (Education + i.text + "<br><br>")
+                                                
                                         for a in range (0,11):
                                             if adjCareer[a] in (i.text):
-                                                Career = (Career + i.text + "<br><br>")
+                                                    Career = (Career + i.text + "<br><br>")
                                         if ("born") in (i.text):
                                             summary = (i.text +summary)            
                                         Main = (Main  +"</center>" + i.text + "<br><br> ")
