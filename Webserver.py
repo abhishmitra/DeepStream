@@ -120,7 +120,6 @@ def PeopleSearch():
     except Exception,err:
         pass
 
-    return "Hello2"
 
 
     #Imports Text
