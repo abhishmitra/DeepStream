@@ -185,10 +185,12 @@ def PeopleSearch():
                                     if ("http") not in i.text:
                                         for a in range (0,ael):
                                             if adjEdu[a] in (i.text):
+                                                if ("born") not in (i.text):
                                                     Education = (Education + i.text + "<br><br>")
                                                 
                                         for a in range (0,acl):
                                             if adjCareer[a] in (i.text):
+                                                if ("born") not in (i.text):
                                                     Career = (Career + i.text + "<br><br>")
                                         if ("born") in (i.text):
                                             summary = (i.text +summary)            
