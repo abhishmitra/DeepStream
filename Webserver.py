@@ -164,10 +164,12 @@ def PeopleSearch():
         if ('wikipedia') not in (url):              #Removes Wikipedia Entries
             if ('youtube') not in (url):                
                 ourUrl = opener.open(url).read()
+                return "Hello3"
                 soup = BeautifulSoup(ourUrl)
                 dem = soup.findAll('p')
+                print "Hello1"
                 tex = soup.title.string
-                return "Hello3"
+                
                 Main = (Main + "<a href='" + url + "'>"+ "<font size = 4>" + tex +"</font>" +"</a>" +"<br><br>")
                 print ( url )
                 print query
@@ -194,10 +196,6 @@ def PeopleSearch():
                                         Main = (Main  +"</center>" + i.text + "<br><br> ")
                                         print (Main)
                                         string = (Heading +"<font size = 6 color = #0080FF><u>"+"Summary:<br>"+"</u></font>" +summary + "<br><br>" + "<font size = 6 color = #0080FF><u>Education:</u></font><br>" +Education + "<br><br>" + "<font size = 6 color = #0080FF><u>Career:</u></font><br>" + Career + "<br><br>" + "<font size = 6 color = #0080FF><u>Main Content:</u></font><br><br>"+ Main + "<br><br>" + End)
-                                        file = open('/Py/SummarySearch.html', 'w')
-                                        a = string.encode('utf-8')
-                                        file.write(a) 
-                                        file.flush()
                                         print "In"
                                         body = body +i.text
                                         text = body
@@ -289,10 +287,6 @@ def PeopleSearch():
                              Main = (Main  +"</center>" + i.text + "<br><br> ")                             
                              string = (Heading +"<font size = 6 color = #0080FF><u>"+"Summary:<br>"+"</u></font>" +summary + "<br><br>" + "<font size = 6 color = #0080FF><u>Education:</u></font><br>" +Education + "<br><br>" + "<font size = 6 color = #0080FF><u>Career:</u></font><br>" + Career + "<br><br>" + "<font size = 6 color = #0080FF><u>Main Content:</u></font><br>"+ Main + "<br><br>" +"<center>" +End + "</center>")
                              return (string)
-                             file = open('/Py/SummarySearch.html', 'w')
-                             a = string.encode('utf-8')
-                             file.write(a) 
-                             file.flush()
                              if QuerySplit[k] in i.text:
                                 if("@") not in i.text:
                                   if("#") not in i.text:
@@ -468,10 +462,6 @@ def ScienceSearch():
                         Mains = (Mains  +"</center>" + i.text + "<br><br> ")
                         string = (Heading +"<font size = 6 color = #0080FF><u>"+"Application:<br>"+"</u></font>" + Application + "<br><br>" +"<font size = 6 color = #0080FF><u>Main Content:</u></font><br><br>"+ Mains)
                         print "Works"
-                        file = open('/Py/Science.html', 'w')
-                        a = string.encode('utf-8')
-                        file.write(a) 
-                        file.flush()
                         print "Yes"
                         #for r in range (0,2):     
                          #  if adjApp[r] in (i.text):
@@ -508,10 +498,7 @@ def ScienceSearch():
                     for i in dem:
                             Mains = (Mains  +"</center>" + i.text + "<br><br> ")
                             string = (Heading +"<font size = 6 color = #0080FF><u>"+"Application:<br>"+"</u></font>" + Application + "<br><br>" +"<font size = 6 color = #0080FF><u>Main Content:</u></font><br><br>"+ Mains)
-                            file = open('/Py/Science.html', 'w')
-                            a = string.encode('utf-8')
-                            file.write(a) 
-                            file.flush()
+                            
                             #for r in range (0,2):     
                             #    if adjApp[r] in (i.text):
                             #        Application = (Application +i.text + "<br><br>")
