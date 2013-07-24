@@ -147,11 +147,11 @@ def PeopleSearch():
     jet = " "
     
     #First Search
+    return "Hellotheredude"
     query = urllib.urlencode ( { 'q' : 'who is '+query } )
     
     
     response = urllib.urlopen ( 'http://ajax.googleapis.com/ajax/services/search/web?v=1.0&' + query ).read()
-    return "Hellothere"
     json = m_json.loads ( response )
     results = json [ 'responseData' ] [ 'results' ]
     i = 0
@@ -164,7 +164,6 @@ def PeopleSearch():
         url = result['url']
         if ('wikipedia') not in (url):              #Removes Wikipedia Entries
             if ('youtube') not in (url):
-                return "Hello"
                 ourUrl = opener.open(url).read()
                 return "Hello3"
                 soup = BeautifulSoup(ourUrl)
