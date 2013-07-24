@@ -78,8 +78,8 @@ def PeopleSearch():
         opener = urllib2.build_opener()
         opener.addheaders = [('User-agent', 'Mozilla/5.0')]
     
-
-  
+        
+          
         adjEdu = ['school','educa,','university','colleg','scholar','merit','young','teenag']
         adjCareer = ['worked','discovered','wrote','develop','won','invent','practiced','study','research','preside','govern']
         query = name
@@ -88,7 +88,7 @@ def PeopleSearch():
         searchTerm = (raw)
 
         searchTerm = searchTerm.replace(' ','%20')
-    
+        
 
         class MyOpener(FancyURLopener): 
             version = 'Mozilla/5.0 (Windows; U; Windows NT 5.1; it; rv:1.8.1.11) Gecko/20071127 Firefox/2.0.0.11'
@@ -96,7 +96,7 @@ def PeopleSearch():
 
         i = 0
         count= 0
-
+        return "Hello1"
         for i in range(0,1):
             url = ('https://ajax.googleapis.com/ajax/services/search/images?' + 'v=1.0&q='+searchTerm+'&start='+str(i*4)+'&userip=MyIP')
             reques1 = urllib2.Request(url, None, {'Referer': 'testing'})
@@ -119,6 +119,7 @@ def PeopleSearch():
     except Exception,err:
         pass
 
+    return "Hello2"
 
 
     #Imports Text
