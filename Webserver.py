@@ -164,10 +164,8 @@ def PeopleSearch():
         if ('wikipedia') not in (url):              #Removes Wikipedia Entries
             if ('youtube') not in (url):
                 ourUrl = opener.open(url).read()
-                return "Hello3"
                 soup = BeautifulSoup(ourUrl)
                 dem = soup.findAll('p')
-                print "Hello1"
                 tex = soup.title.string
                 
                 Main = (Main + "<a href='" + url + "'>"+ "<font size = 4>" + tex +"</font>" +"</a>" +"<br><br>")
