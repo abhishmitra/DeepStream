@@ -143,7 +143,6 @@ def PeopleSearch():
     k = 0
     v = 0
     Abst = "Nothing Here"
-    file = open('/Py/testfile.html','w')
     jet = " "
     
     #First Search
