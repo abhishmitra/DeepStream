@@ -190,8 +190,7 @@ def PeopleSearch():
                                                 
                                         for a in range (0,acl):
                                             if adjCareer[a] in (i.text):
-                                                if ("born") not in (i.text):
-                                                    Career = (Career + i.text + "<br><br>")
+                                                   Career = (Career + i.text + "<br><br>")
                                         if ("born") in (i.text):
                                             summary = (i.text +summary)            
                                         Main = (Main  +"</center>" + i.text + "<br><br> ")
