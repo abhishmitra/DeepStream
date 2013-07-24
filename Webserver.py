@@ -2,7 +2,6 @@ import os
 # -*- coding: cp1252 -*-
 import codecs
 import time
-from xgoogle.search import GoogleSearch, SearchError
 import urllib2
 import urllib
 import json as m_json
