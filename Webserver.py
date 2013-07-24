@@ -451,14 +451,14 @@ def ScienceSearch():
                 URL = url
                 try:
                     for i in dem:
-                        return "Hello"
+                        
                         Mains = (Mains  +"</center>" + i.text + "<br><br> ")
                         string = (Heading +"<font size = 6 color = #0080FF><u>"+"Application:<br>"+"</u></font>" + Application + "<br><br>" +"<font size = 6 color = #0080FF><u>Main Content:</u></font><br><br>"+ Mains)
                         for r in range (0,2):     
                            if adjApp[r] in (i.text):
                              Application = (Application +i.text)       
                                 
-                        print "Yes"
+                        
                                        
                 except:
                     pass
@@ -482,11 +482,10 @@ def ScienceSearch():
                 dem = soup.findAll('p')
                 tex = soup.title.string
                 Mains = (Mains + "<a href='" + url + "'>" + "<font size = 4>"+tex + "</font>"+"</a>" +"<br>")
-                print ( url )
-                print (querya)
                 URL = url
                 try:
                     for i in dem:
+                            return "Hello There"
                             Mains = (Mains  +"</center>" + i.text + "<br><br> ")
                             string = (Heading +"<font size = 6 color = #0080FF><u>"+"Application:<br>"+"</u></font>" + Application + "<br><br>" +"<font size = 6 color = #0080FF><u>Main Content:</u></font><br><br>"+ Mains)
                             
