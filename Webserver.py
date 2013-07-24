@@ -441,7 +441,6 @@ def ScienceSearch():
         url = result['url']
         if ('wikipedia') not in (url):              #Removes Wikipedia Entries
             if ('youtube') not in (url):
-                return "Hello"
                 ourUrl = opener.open(url).read()
                 soup = BeautifulSoup(ourUrl)
             
@@ -452,14 +451,12 @@ def ScienceSearch():
                 URL = url
                 try:
                     for i in dem:
-
+                        return "Hello"
                         Mains = (Mains  +"</center>" + i.text + "<br><br> ")
                         string = (Heading +"<font size = 6 color = #0080FF><u>"+"Application:<br>"+"</u></font>" + Application + "<br><br>" +"<font size = 6 color = #0080FF><u>Main Content:</u></font><br><br>"+ Mains)
-                        print "Works"
-                        print "Yes"
-                        #for r in range (0,2):     
-                         #  if adjApp[r] in (i.text):
-                          #   Application = (Application +i.text)       
+                        for r in range (0,2):     
+                           if adjApp[r] in (i.text):
+                             Application = (Application +i.text)       
                                 
                         print "Yes"
                                        
@@ -493,13 +490,10 @@ def ScienceSearch():
                             Mains = (Mains  +"</center>" + i.text + "<br><br> ")
                             string = (Heading +"<font size = 6 color = #0080FF><u>"+"Application:<br>"+"</u></font>" + Application + "<br><br>" +"<font size = 6 color = #0080FF><u>Main Content:</u></font><br><br>"+ Mains)
                             
-                            #for r in range (0,2):     
-                            #    if adjApp[r] in (i.text):
-                            #        Application = (Application +i.text + "<br><br>")
+                            for r in range (0,2):     
+                                if adjApp[r] in (i.text):
+                                    Application = (Application +i.text + "<br><br>")
                             
-                            #querycurs.execute('UPDATE Data1 SET info =? WHERE q =?',(string,raw))
-                            #CreateDB.commit()
-                            print "Yes"
                                        
                 except:
                     pass
