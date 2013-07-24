@@ -81,7 +81,9 @@ def PeopleSearch():
         
           
         adjEdu = ['school','educa,','university','colleg','scholar','merit','young','teenag']
-        adjCareer = ['worked','discovered','wrote','develop','won','invent','practiced','study','research','preside','govern']
+        ael = (len(adjEdu)-1)
+        adjCareer = ['worked','discovered','wrote','develop','won','invent','practiced','study','research','preside','govern','act']
+        acl = (len(adjCareer)-1)
         query = name
         raw = query
     
@@ -181,11 +183,11 @@ def PeopleSearch():
                               if QuerySplit[k] in i.text:
                                 if("@") not in i.text:
                                     if ("http") not in i.text:
-                                        for a in range (0,8):
+                                        for a in range (0,ael):
                                             if adjEdu[a] in (i.text):
                                                     Education = (Education + i.text + "<br><br>")
                                                 
-                                        for a in range (0,11):
+                                        for a in range (0,acl):
                                             if adjCareer[a] in (i.text):
                                                     Career = (Career + i.text + "<br><br>")
                                         if ("born") in (i.text):
@@ -406,6 +408,7 @@ def ScienceSearch():
     
 
     adjApp = ['applicat','used in']
+    aal = (len(adjApp)-1)
     
     Application = ""
     
@@ -453,7 +456,7 @@ def ScienceSearch():
                         
                         Mains = (Mains  +"</center>" + i.text + "<br><br> ")
                         string = (Heading +"<font size = 6 color = #0080FF><u>"+"Application:<br>"+"</u></font>" + Application + "<br><br>" +"<font size = 6 color = #0080FF><u>Main Content:</u></font><br><br>"+ Mains)
-                        for r in range (0,2):     
+                        for r in range (0,aal):     
                            if adjApp[r] in (i.text):
                              Application = (Application +i.text)       
                                 
