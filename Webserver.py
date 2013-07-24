@@ -523,6 +523,5 @@ def ScienceSearch():
 
 
 
-app.debug = True
-app.run(host='localhost', port=8080)
+
 
