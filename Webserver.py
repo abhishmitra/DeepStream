@@ -96,7 +96,8 @@ def PeopleSearch():
 
         i = 0
         count= 0
-        return "Hello1"
+        
+            
         for i in range(0,1):
             url = ('https://ajax.googleapis.com/ajax/services/search/images?' + 'v=1.0&q='+searchTerm+'&start='+str(i*4)+'&userip=MyIP')
             reques1 = urllib2.Request(url, None, {'Referer': 'testing'})
@@ -134,6 +135,8 @@ def PeopleSearch():
     string = ("")
     summary = ""
     cli =0
+    
+    
 
     print QuerySplit[0]
     j = 0
@@ -165,6 +168,7 @@ def PeopleSearch():
                 soup = BeautifulSoup(ourUrl)
                 dem = soup.findAll('p')
                 tex = soup.title.string
+                return "Hello3"
                 Main = (Main + "<a href='" + url + "'>"+ "<font size = 4>" + tex +"</font>" +"</a>" +"<br><br>")
                 print ( url )
                 print query
