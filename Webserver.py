@@ -240,8 +240,7 @@ def PeopleSearch():
                                        
                 except Exception,err:
                     continue
-    return (string)
-
+    
     #Second Search
     query = urllib.urlencode ( { 'q' : query + " born"} )
     
@@ -346,7 +345,7 @@ def PeopleSearch():
                 except Exception,err:
                     continue
     
-    print "Done"
+
     return (string)
 
 @app.route('/science', methods=['POST'])
