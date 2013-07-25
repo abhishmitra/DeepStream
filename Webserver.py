@@ -186,14 +186,14 @@ def PeopleSearch():
                                         for a in range (0,ael):
                                             if adjEdu[a] in (i.text):
                                                 if ("born") not in (i.text):
-                                                    Education = (Education + i.text + "<br><br>")
+                                                    Education = (Education + i.text + "<br>")
                                                 
                                         for a in range (0,acl):
                                             if adjCareer[a] in (i.text):
-                                                   Career = (Career + i.text + "<br><br>")
-                                        if ("born") in (i.text):
-                                            summary = (i.text +summary)            
-                                        Main = (Main  +"</center>" + i.text + "<br><br> ")
+                                                   Career = (Career + i.text + "<br>")
+                                        #if ("born") in (i.text):
+                                         #   summary = (i.text +"<br>"+summary)            
+                                        Main = (Main  +"</center>" + i.text + "<br>")
                                         print (Main)
                                         string = (Heading +"<font size = 6 color = #0080FF><u>"+"Summary:<br>"+"</u></font>" +summary + "<br><br>" + "<font size = 6 color = #0080FF><u>Education:</u></font><br>" +Education + "<br><br>" + "<font size = 6 color = #0080FF><u>Career:</u></font><br>" + Career + "<br><br>" + "<font size = 6 color = #0080FF><u>Main Content:</u></font><br><br>"+ Main + "<br><br>" + End)
                                         print "In"
@@ -230,8 +230,8 @@ def PeopleSearch():
                                             ' '.join([i[1] for i in selected_sents]))
                                             if (sum) not in (summary):
                                                 if ("Born") in(sum):
-                                                    summary = (sum+summary)
-                                                summary = (summary+sum)
+                                                    summary = (sum + "<br>"+ summary)
+                                                summary = (summary + "<br>" + sum)
                                             print (summary)
                                         except Exception, err:
                                             continue
@@ -275,12 +275,12 @@ def PeopleSearch():
                              for a in range (0,8):
                                     if adjEdu[a] in (i.text):
                                         if (i.text) not in (Education):
-                                            Education = (Education + i.text + "<br><br>")
+                                            Education = (Education + "<br>" + i.text )
                                             print Education
                              for a in range (0,11):
                                     if adjCareer[a] in (i.text):
                                         if (i.text) not in (Career):
-                                            Career = (Career + i.text + "<br><br>")
+                                            Career = (Career +"<br>" +i.text )
                              if ("born") in (i.text):
                                    summary = (i.text +summary)            
                              Main = (Main  +"</center>" + i.text + "<br><br> ")                             
@@ -330,9 +330,9 @@ def PeopleSearch():
                                                     summary = (i.text +summary)
                                                 if ("Born") in(sum):
                                                     print "Born is Here"
-                                                    summary = (sum+summary)
+                                                    summary = (sum+"<br>" +summary)
                                                 else:
-                                                    summary = (summary+sum)
+                                                    summary = (summary+ "<br>" +sum)
                                             print summary
                                         except Exception,err:
                                             continue
@@ -459,7 +459,7 @@ def ScienceSearch():
                         string = (Heading +"<font size = 6 color = #0080FF><u>"+"Application:<br>"+"</u></font>" + Application + "<br><br>" +"<font size = 6 color = #0080FF><u>Main Content:</u></font><br><br>"+ Mains)
                         for r in range (0,aal):     
                            if adjApp[r] in (i.text):
-                             Application = (Application +i.text)       
+                             Application = (Application +i.text + "<br>")       
                                 
                         
                                        
