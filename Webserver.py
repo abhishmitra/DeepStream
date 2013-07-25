@@ -457,11 +457,46 @@ def ScienceSearch():
                         for k in range (l ,QSL-1):
                               if QuerySplit[k] in i.text:
                                     Mains = (Mains  +"</center>" + i.text + "<br><br> ")
-                                    string = (Heading +"<font size = 6 color = #0080FF><u>"+"Application:<br>"+"</u></font>" + Application + "<br><br>" +"<font size = 6 color = #0080FF><u>Main Content:</u></font><br><br>"+ Mains)
+                                    string = (Heading +"<font size = 6 color = #0080FF><u>Summary:<br></u></font>"+summary+ "<br><br>" +"<font size = 6 color = #0080FF><u>Main Content:</u></font><br><br>"+ Mains)
                                     for r in range (0,aal):     
                                        if adjApp[r] in (i.text):
                                            Application = (Application +i.text)       
-                                
+
+
+                        body = (body) + (i.text)
+                        text = body
+                                        
+                        try:
+                                            sentences = sent_tokenize(text)
+                                            tekan = len(sentences)*0.5
+                                            print len(sentences)
+                                            collections_tokens = word_tokenize(text)
+                                            collection_counter = Counter(collections_tokens)
+                                            sent_saliences = []
+                                            scored_sents = []
+                                            num_to_extract = 1
+
+                                            for index, sentence in enumerate(sentences):
+                                                sent_salience = 0
+                                                sent_tokens = word_tokenize(sentence)
+                                                sent_counter = Counter(sent_tokens)
+                                                for token in sent_tokens:
+                                                    tf = sent_counter[token]
+                                                    idf = log10(len(sentences) / sent_counter[token])
+                                                    tfidf = tf * idf
+                                                    sent_salience += tfidf
+                                                normalized_salience = sent_salience / len(sent_tokens)
+                                                sent_saliences.append(normalized_salience)
+                                                scored_sents.append((normalized_salience, sentence, index))
+
+                                            scored_sents.sort(key=lambda tup: tup[0], reverse=True)
+                                            selected_sents = sorted(scored_sents[:num_to_extract], key=lambda tup: tup[2])
+
+                                            sum = '%s' % (
+                                            ' '.join([i[1] for i in selected_sents]))
+                                            if (sum) not in (summary):
+                                                summary = (summary + sum)
+                                                
                         
                                        
                 except:
