@@ -190,7 +190,6 @@ def PeopleSearch():
                                                 
                                         for a in range (0,acl):
                                             if adjCareer[a] in (i.text):
-                                                
                                                     Career = (Career + i.text + "<br><br>")
                                         if ("born") in (i.text):
                                             summary = (i.text +summary)            
@@ -455,12 +454,13 @@ def ScienceSearch():
                 URL = url
                 try:
                     for i in dem:
-                        
-                        Mains = (Mains  +"</center>" + i.text + "<br><br> ")
-                        string = (Heading +"<font size = 6 color = #0080FF><u>"+"Application:<br>"+"</u></font>" + Application + "<br><br>" +"<font size = 6 color = #0080FF><u>Main Content:</u></font><br><br>"+ Mains)
-                        for r in range (0,aal):     
-                           if adjApp[r] in (i.text):
-                             Application = (Application +i.text)       
+                        for k in range (l ,QSL-1):
+                              if QuerySplit[k] in i.text:
+                                    Mains = (Mains  +"</center>" + i.text + "<br><br> ")
+                                    string = (Heading +"<font size = 6 color = #0080FF><u>"+"Application:<br>"+"</u></font>" + Application + "<br><br>" +"<font size = 6 color = #0080FF><u>Main Content:</u></font><br><br>"+ Mains)
+                                    for r in range (0,aal):     
+                                       if adjApp[r] in (i.text):
+                                           Application = (Application +i.text)       
                                 
                         
                                        
