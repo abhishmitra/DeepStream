@@ -1,4 +1,4 @@
- import os
+import os
 # -*- coding: cp1252 -*-
 import codecs
 import time
@@ -564,3 +564,6 @@ def ScienceSearch():
 @app.errorhandler(500)
 def pageNotFound(error):
     return "page not found"
+
+
+app.run(host='localhost',port=8080)
