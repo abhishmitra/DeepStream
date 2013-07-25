@@ -553,8 +553,7 @@ def ScienceSearch():
                                             scored_sents.sort(key=lambda tup: tup[0], reverse=True)
                                             selected_sents = sorted(scored_sents[:num_to_extract], key=lambda tup: tup[2])
                                         
-                                            sum = '%s' % (
-                                            ' '.join([i[1] for i in selected_sents]))
+                                            sum = '%s' % (' '.join([i[1] for i in selected_sents]))
                                             summary = (summary +sum)
                             except:
                                 continue
