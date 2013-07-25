@@ -463,7 +463,7 @@ def ScienceSearch():
                                     try:
                                             sentences = sent_tokenize(text)
                                             tekan = len(sentences)*0.5
-                                            print len(sentences)
+                                            
                                             collections_tokens = word_tokenize(text)
                                             collection_counter = Counter(collections_tokens)
                                             sent_saliences = []
@@ -562,3 +562,5 @@ def ScienceSearch():
                    pass
     return (string)
 
+
+app.run(host = 'localhost',port =8080)
