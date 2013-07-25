@@ -352,7 +352,8 @@ def PeopleSearch():
 
 @app.route('/science', methods=['POST'])
 def ScienceSearch():
-    
+    body = ""
+    summary =""
     name = request.form.get('search')
     name_s = name.split()
     al = len(name_s)
@@ -454,8 +455,7 @@ def ScienceSearch():
                 URL = url
                 try:
                     for i in dem:
-                        for k in range (l ,QSL-1):
-                              if QuerySplit[k] in i.text:
+                        
                                     Mains = (Mains  +"</center>" + i.text + "<br><br> ")
                                     string = (Heading +"<font size = 6 color = #0080FF><u>"+"Summary:<br>"+"</u></font>" + summary + "<br><br>" +"<font size = 6 color = #0080FF><u>Main Content:</u></font><br><br>"+ Mains)
                                     body = body +i.text
@@ -521,8 +521,7 @@ def ScienceSearch():
                 URL = url
                 try:
                     for i in dem:
-                      for k in range (l ,QSL-1):
-                        if QuerySplit[k] in i.text:
+                     
                             Mains = (Mains  +"</center>" + i.text + "<br><br> ")
                             string = (Heading +"<font size = 6 color = #0080FF><u>"+"Summary:<br>"+"</u></font>" + summary + "<br><br>" +"<font size = 6 color = #0080FF><u>Main Content:</u></font><br><br>"+ Mains)
                             body = body +i.text
