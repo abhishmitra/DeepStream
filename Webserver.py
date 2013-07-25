@@ -120,7 +120,7 @@ def PeopleSearch():
             myopener.retrieve(myUrl['unescapedUrl'],str(count)+'.jpg')
 
     except Exception,err:
-        pass
+        continue
 
 
 
@@ -190,6 +190,7 @@ def PeopleSearch():
                                                 
                                         for a in range (0,acl):
                                             if adjCareer[a] in (i.text):
+                                                if (i.text) not in (Career):
                                                     Career = (Career + i.text + "<br><br>")
                                         if ("born") in (i.text):
                                             summary = (i.text +summary)            
@@ -345,8 +346,6 @@ def PeopleSearch():
                                        
                 except Exception,err:
                     continue
-    
-
     return (string)
 
 @app.route('/science', methods=['POST'])
@@ -563,4 +562,4 @@ def ScienceSearch():
     return (string)
 
 
-
+app.run(host='localhost',port =8080)
