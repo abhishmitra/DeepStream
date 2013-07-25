@@ -120,7 +120,7 @@ def PeopleSearch():
             myopener.retrieve(myUrl['unescapedUrl'],str(count)+'.jpg')
 
     except Exception,err:
-        continue
+        pass
 
 
 
