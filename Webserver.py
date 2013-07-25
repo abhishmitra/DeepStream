@@ -1,4 +1,4 @@
-import os
+ import os
 # -*- coding: cp1252 -*-
 import codecs
 import time
@@ -231,8 +231,8 @@ def PeopleSearch():
                                             ' '.join([i[1] for i in selected_sents]))
                                             if (sum) not in (summary):
                                                 if ("Born") in(sum):
-                                                    summary = (sum+summary)
-                                                summary = (summary+sum)
+                                                    summary = ("<font size =10" + sum+"</font>" + summary)
+                                                summary = (summary + "<font size =10" + "</font>" + sum)
                                             print (summary)
                                         except Exception, err:
                                             continue
@@ -561,4 +561,6 @@ def ScienceSearch():
                    pass
     return (string)
 
-
+@app.errorhandler(500)
+def pageNotFound(error):
+    return "page not found"
