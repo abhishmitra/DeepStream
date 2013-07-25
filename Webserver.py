@@ -563,7 +563,7 @@ def ScienceSearch():
 
 @app.errorhandler(500)
 def pageNotFound(error):
-    return "page not found"
+    return "Sorry this web page was not found. Search again."
 
 
 app.run(host='localhost',port=8080)
