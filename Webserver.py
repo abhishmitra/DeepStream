@@ -194,7 +194,7 @@ def PeopleSearch():
                                                     Career = (Career + i.text + "<br><br>")
                                         if ("born") in (i.text):
                                             summary = (i.text +summary)            
-                                        Main = (Main  +"</center>" + i.text + "<br><br> ")
+                                        Main = ("<font size = 4>" +Main  +"</center>" + i.text + "<br><br> "+"</font>")
                                         print (Main)
                                         string = (Heading +"<font size = 6 color = #0080FF><u>"+"Summary:<br>"+"</u></font>" +summary + "<br><br>" + "<font size = 6 color = #0080FF><u>Education:</u></font><br>" +Education + "<br><br>" + "<font size = 6 color = #0080FF><u>Career:</u></font><br>" + Career + "<br><br>" + "<font size = 6 color = #0080FF><u>Main Content:</u></font><br><br>"+ Main + "<br><br>" + End)
                                         print "In"
@@ -284,7 +284,7 @@ def PeopleSearch():
                                             Career = (Career + i.text + "<br><br>")
                              if ("born") in (i.text):
                                    summary = (i.text +summary)            
-                             Main = (Main  +"</center>" + i.text + "<br><br> ")                             
+                             Main = ("<font size = 4>" +Main  +"</center>" + i.text + "<br><br> "+"</font>")                            
                              string = (Heading +"<font size = 6 color = #0080FF><u>"+"Summary:<br>"+"</u></font>" +summary + "<br><br>" + "<font size = 6 color = #0080FF><u>Education:</u></font><br>" +Education + "<br><br>" + "<font size = 6 color = #0080FF><u>Career:</u></font><br>" + Career + "<br><br>" + "<font size = 6 color = #0080FF><u>Main Content:</u></font><br>"+ Main + "<br><br>" +"<center>" +End + "</center>")
                              return (string)
                              if QuerySplit[k] in i.text:
@@ -454,7 +454,7 @@ def ScienceSearch():
                 try:
                     for i in dem:
                         
-                                    Mains = (Mains  +"</center>" + i.text + "<br><br> ")
+                                    Main = ("<font size = 4>" +Main  +"</center>" + i.text + "<br><br> "+"</font>")
                                     string = (Heading +"<font size = 6 color = #0080FF><u>"+"Summary:<br>"+"</u></font>" + summary + "<br><br>" +"<font size = 6 color = #0080FF><u>Main Content:</u></font><br><br>"+ Mains)
                                     body = (body +i.text)
                                     text = (body)
@@ -520,7 +520,7 @@ def ScienceSearch():
                 try:
                     for i in dem:
                      
-                            Mains = (Mains  +"</center>" + i.text + "<br><br> ")
+                            Main = ("<font size = 4>" +Main  +"</center>" + i.text + "<br><br> "+"</font>")
                             string = (Heading +"<font size = 6 color = #0080FF><u>"+"Summary:<br>"+"</u></font>" + summary + "<br><br>" +"<font size = 6 color = #0080FF><u>Main Content:</u></font><br><br>"+ Mains)
                             body = body +i.text
                             text = body
@@ -562,3 +562,4 @@ def ScienceSearch():
     return (string)
 
 
+app.run(host='localhost',port=8080)
