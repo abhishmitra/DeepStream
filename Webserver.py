@@ -339,8 +339,7 @@ def PeopleSearch():
                                         string = (Heading +"<font size = 6 color = #0080FF><u>"+"Summary:<br>"+"</u></font>" +summary + "<br><br>" + "<font size = 6 color = #0080FF><u>Education:</u></font><br>" +Education + "<br><br>" + "<font size = 6 color = #0080FF><u>Career:</u></font><br>" + Career + "<br><br>" + Main + "<br><br>" +"<center>" +End+"</center>")
                                         
 
-                                        #querycurs.execute('UPDATE Data1 SET info =? WHERE q =?',(string,raw))
-                                        #CreateDB.commit()
+                                        
                                         print "Yes"
     
                                        
@@ -458,8 +457,8 @@ def ScienceSearch():
                         
                                     Mains = (Mains  +"</center>" + i.text + "<br><br> ")
                                     string = (Heading +"<font size = 6 color = #0080FF><u>"+"Summary:<br>"+"</u></font>" + summary + "<br><br>" +"<font size = 6 color = #0080FF><u>Main Content:</u></font><br><br>"+ Mains)
-                                    body = body +i.text
-                                    text = body
+                                    body = (body +i.text)
+                                    text = (body)
                                         
                                     try:
                                             sentences = sent_tokenize(text)
@@ -470,7 +469,7 @@ def ScienceSearch():
                                             sent_saliences = []
                                             scored_sents = []
                                             num_to_extract = 1
-
+                                            
                                             for index, sentence in enumerate(sentences):
                                                 sent_salience = 0
                                                 sent_tokens = word_tokenize(sentence)
@@ -488,7 +487,7 @@ def ScienceSearch():
                                             selected_sents = sorted(scored_sents[:num_to_extract], key=lambda tup: tup[2])
                                         
                                             sum = '%s' % (' '.join([i[1] for i in selected_sents]))
-                                            summary = (summary +sum)
+                                            summary = (summary + sum)
 
                                     except:
                                         continue
@@ -554,7 +553,7 @@ def ScienceSearch():
                                             selected_sents = sorted(scored_sents[:num_to_extract], key=lambda tup: tup[2])
                                         
                                             sum = '%s' % (' '.join([i[1] for i in selected_sents]))
-                                            summary = (summary +sum)
+                                            summary = (summary +sum +"<br>")
                             except:
                                 continue
                             
@@ -562,7 +561,4 @@ def ScienceSearch():
                 except:
                    pass
     return (string)
-
-
-
 
