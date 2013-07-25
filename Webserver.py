@@ -186,12 +186,12 @@ def PeopleSearch():
                                         for a in range (0,ael):
                                             if adjEdu[a] in (i.text):
                                                 
-                                                    Education = (Education + i.text + "<br><br>")
+                                                    Education = (Education +"<font size =4>" + i.text +"</font>" +"<br><br>")
                                                 
                                         for a in range (0,acl):
                                             if adjCareer[a] in (i.text):
                                                 if (i.text) not in (Career):
-                                                    Career = (Career + i.text + "<br><br>")
+                                                    Career = (Career +"<font size =4>" + i.text +"</font>" +"<br><br>")
                                         if ("born") in (i.text):
                                             summary = (i.text +summary)            
                                         Main = (Main  +"</center>" + "<font size = 4>" +i.text + "<br><br> "+"</font>")
@@ -276,12 +276,12 @@ def PeopleSearch():
                              for a in range (0,8):
                                     if adjEdu[a] in (i.text):
                                         if (i.text) not in (Education):
-                                            Education = (Education + i.text + "<br><br>")
+                                            Education = (Education +"<font size =4>" + i.text +"</font>" +"<br><br>")
                                             print Education
                              for a in range (0,11):
                                     if adjCareer[a] in (i.text):
                                         if (i.text) not in (Career):
-                                            Career = (Career + i.text + "<br><br>")
+                                            Career = (Career +"<font size =4>" + i.text +"</font>" +"<br><br>")
                              if ("born") in (i.text):
                                    summary = (i.text +summary)            
                              Main = (Main  +"</center>" + "<font size = 4>" +i.text + "<br><br> "+"</font>")                            
