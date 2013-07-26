@@ -185,13 +185,15 @@ def PeopleSearch():
                                     if ("http") not in i.text:
                                         for a in range (0,ael):
                                             if adjEdu[a] in (i.text):
-                                                
                                                     Education = (Education +"<font size =4>" + i.text +"</font>" +"<br><br>")
+                                                    break
                                                 
                                         for a in range (0,acl):
                                             if adjCareer[a] in (i.text):
                                                 if (i.text) not in (Career):
                                                     Career = (Career +"<font size =4>" + i.text +"</font>" +"<br><br>")
+                                                    break
+                                                    
                                         if ("born") in (i.text):
                                             summary = (i.text +summary)            
                                         Main = (Main  +"</center>" + "<font size = 4>" +i.text + "<br><br> "+"</font>")
@@ -234,6 +236,7 @@ def PeopleSearch():
                                                     summary = ("<font size =10" + sum+"</font>" + summary)
                                                 summary = (summary + "<font size =10" + "</font>" + sum)
                                             print (summary)
+                                            break
                                         except Exception, err:
                                             continue
                                         
@@ -276,11 +279,13 @@ def PeopleSearch():
                                     if adjEdu[a] in (i.text):
                                         if (i.text) not in (Education):
                                             Education = (Education +"<font size =4>" + i.text +"</font>" +"<br><br>")
+                                            break
                                             print Education
                              for a in range (0,11):
                                     if adjCareer[a] in (i.text):
                                         if (i.text) not in (Career):
                                             Career = (Career +"<font size =4>" + i.text +"</font>" +"<br><br>")
+                                            break
                              if ("born") in (i.text):
                                    summary = (i.text +summary)            
                              Main = (Main  +"</center>" + "<font size = 4>" +i.text + "<br><br> "+"</font>")                            
@@ -338,7 +343,7 @@ def PeopleSearch():
                                             continue
                                         string = (Heading +"<font size = 6 color = #0080FF><u>"+"Summary:<br>"+"</u></font>" +summary + "<br><br>" + "<font size = 6 color = #0080FF><u>Education:</u></font><br>" +Education + "<br><br>" + "<font size = 6 color = #0080FF><u>Career:</u></font><br>" + Career + "<br><br>" + Main + "<br><br>" +"<center>" +End+"</center>")
                                         
-
+                                        break
                                         
                                         print "Yes"
     
@@ -486,6 +491,7 @@ def ScienceSearch():
                                         
                                             sum = '%s' % (' '.join([i[1] for i in selected_sents]))
                                             #summary = (summary + sum)
+                    break
                                             
 
                                     except:
@@ -553,7 +559,7 @@ def ScienceSearch():
                                         
                                             sum = '%s' % (' '.join([i[1] for i in selected_sents]))
                                             summary = (summary +sum +"<br>")
-                                            summery = "Hey"
+                                            summary = "Hey"
                             except:
                                 continue
                             
