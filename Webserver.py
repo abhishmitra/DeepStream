@@ -185,6 +185,7 @@ def PeopleSearch():
                                     if ("http") not in i.text:
                                         for a in range (0,ael):
                                             if adjEdu[a] in (i.text):
+                                                if (i.text) not in (Career):
                                                     Education = (Education +"<font size =4>" + i.text +"</font>" +"<br><br>")
                                                     break
                                                 
@@ -491,13 +492,14 @@ def ScienceSearch():
                                         
                                             sum = '%s' % (' '.join([i[1] for i in selected_sents]))
                                             #summary = (summary + sum)
-                    break
+
                                             
 
                                     except:
                                         continue
-                                 
-                                
+
+                    break
+                                                                 
                         
                                        
                 except:
