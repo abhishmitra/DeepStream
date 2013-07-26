@@ -486,7 +486,7 @@ def ScienceSearch():
                                         
                                             sum = '%s' % (' '.join([i[1] for i in selected_sents]))
                                             #summary = (summary + sum)
-                                            summary = "Hey"
+                                            
 
                                     except:
                                         continue
@@ -553,6 +553,7 @@ def ScienceSearch():
                                         
                                             sum = '%s' % (' '.join([i[1] for i in selected_sents]))
                                             summary = (summary +sum +"<br>")
+                                            summery = "Hey"
                             except:
                                 continue
                             
