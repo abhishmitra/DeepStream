@@ -187,13 +187,13 @@ def PeopleSearch():
                                             if adjEdu[a] in (i.text):
                                                 if (i.text) not in (Career):
                                                     Education = (Education +"<font size =4>" + i.text +"</font>" +"<br><br>")
-                                                    break
+                                                    continue
                                                 
                                         for a in range (0,acl):
                                             if adjCareer[a] in (i.text):
                                                 if (i.text) not in (Career):
                                                     Career = (Career +"<font size =4>" + i.text +"</font>" +"<br><br>")
-                                                    break
+                                                    continue
                                                     
                                         if ("born") in (i.text):
                                             summary = (i.text +summary)            
@@ -237,13 +237,14 @@ def PeopleSearch():
                                                     summary = ("<font size =10" + sum+"</font>" + summary)
                                                 summary = (summary + "<font size =10" + "</font>" + sum)
                                             print (summary)
-                                            break
+                                            
                                         except Exception, err:
                                             continue
                                         
                                         print "Yes"
     
-                                       
+                    continue
+                
                 except Exception,err:
                     continue
     
@@ -280,13 +281,13 @@ def PeopleSearch():
                                     if adjEdu[a] in (i.text):
                                         if (i.text) not in (Education):
                                             Education = (Education +"<font size =4>" + i.text +"</font>" +"<br><br>")
-                                            break
+                                            continue
                                             print Education
                              for a in range (0,11):
                                     if adjCareer[a] in (i.text):
                                         if (i.text) not in (Career):
                                             Career = (Career +"<font size =4>" + i.text +"</font>" +"<br><br>")
-                                            break
+                                            continue
                              if ("born") in (i.text):
                                    summary = (i.text +summary)            
                              Main = (Main  +"</center>" + "<font size = 4>" +i.text + "<br><br> "+"</font>")                            
@@ -342,12 +343,10 @@ def PeopleSearch():
                                             print summary
                                         except Exception,err:
                                             continue
-                                        string = (Heading +"<font size = 6 color = #0080FF><u>"+"Summary:<br>"+"</u></font>" +summary + "<br><br>" + "<font size = 6 color = #0080FF><u>Education:</u></font><br>" +Education + "<br><br>" + "<font size = 6 color = #0080FF><u>Career:</u></font><br>" + Career + "<br><br>" + Main + "<br><br>" +"<center>" +End+"</center>")
-                                        
-                                        break
-                                        
+                                        string = (Heading +"<font size = 6 color = #0080FF><u>"+"Summary:<br>"+"</u></font>" +summary + "<br><br>" + "<font size = 6 color = #0080FF><u>Education:</u></font><br>" +Education + "<br><br>" + "<font size = 6 color = #0080FF><u>Career:</u></font><br>" + Career + "<br><br>" + Main + "<br><br>" +"<center>" +End+"</center>")                                        
+                                                                           
                                         print "Yes"
-    
+                    continue    
                                        
                 except Exception,err:
                     continue
@@ -495,14 +494,12 @@ def ScienceSearch():
 
                                             
 
-                                    except:
+                                    except Exception,err:
                                         continue
 
-                    break
-                                                                 
-                        
-                                       
-                except:
+                    continue
+                   
+                except Exception,err:
                     pass
     
                                 
@@ -564,7 +561,7 @@ def ScienceSearch():
                                             summary = "Hey"
                             except:
                                 continue
-                            
+                    continue                            
                                        
                 except:
                    pass
