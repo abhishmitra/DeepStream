@@ -236,8 +236,7 @@ def PeopleSearch():
                                             print (summary)
                                         except Exception, err:
                                             continue
-                                        #querycurs.execute('UPDATE Data1 SET info =? WHERE q =?',(string,raw))
-                                        #CreateDB.commit()
+                                        
                                         print "Yes"
     
                                        
@@ -486,7 +485,8 @@ def ScienceSearch():
                                             selected_sents = sorted(scored_sents[:num_to_extract], key=lambda tup: tup[2])
                                         
                                             sum = '%s' % (' '.join([i[1] for i in selected_sents]))
-                                            summary = (summary + sum)
+                                            #summary = (summary + sum)
+                                            summary = "Hey"
 
                                     except:
                                         continue
