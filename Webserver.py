@@ -185,7 +185,7 @@ def PeopleSearch():
                                     if ("http") not in i.text:
                                         for a in range (0,ael):
                                             if adjEdu[a] in (i.text):
-                                                if (i.text) not in (Career):
+                                                if (i.text) not in (Education):
                                                     Education = (Education +"<font size =4>" + i.text +"</font>" +"<br><br>")
                                                     continue
                                                 
