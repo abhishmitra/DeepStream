@@ -47,7 +47,7 @@ def hello():
                      <br>
                      <br>
                      <br>
-                     Feedback at: admin@pacebyte.com
+                     Please send your feedback to: <a href="mailto:'admin@pacebyte.com'">Pacebyte administrator</a>
                 </center>
               </form>'''
 
