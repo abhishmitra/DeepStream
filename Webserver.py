@@ -24,7 +24,7 @@ profanity = ['fuck','asshole','sex','faggot','negro','nigger','boob','tit']
 @app.route('/')
 def hello():
     return ''' <a href= /about>About</a>
-                <center><br><br><br><br><img src="https://lh5.googleusercontent.com/-cjODD9V7AXI/UerIKznIVNI/AAAAAAAAAaU/dSi288GNIr4/w500-h229-no/PaceByte.png" width = 500px><br><br>
+                <center><br><br><br><br><img src="https://lh5.googleusercontent.com/-MISGJsdATlo/Ufo2xq2lGfI/AAAAAAAAAbk/3lG9hKOSN5A/w500-h229-no/PaceByte.png" width = 500px><br><br>
                 <br><br><br>
                 
                 <form method="POST" action="/people">
@@ -42,6 +42,12 @@ def hello():
                     <input name="search" type="text" width=1000px> 
                     <br>
                      <input type="submit" value="Science Search"/>
+                     <br>
+                     <br>
+                     <br>
+                     <br>
+                     <br>
+                     Feedback at: admin@pacebyte.com
                 </center>
               </form>'''
 
