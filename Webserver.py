@@ -24,7 +24,7 @@ profanity = ['fuck','asshole','sex','faggot','negro','nigger','boob','tit']
 @app.route('/')
 def hello():
     return ''' <a href= /about>About</a>
-                <center><br><br><br><br><img src="https://lh5.googleusercontent.com/-MISGJsdATlo/Ufo2xq2lGfI/AAAAAAAAAbk/3lG9hKOSN5A/w500-h229-no/PaceByte.png" width = 500px><br><br>
+                <center><br><br><img src="https://lh5.googleusercontent.com/-MISGJsdATlo/Ufo2xq2lGfI/AAAAAAAAAbk/3lG9hKOSN5A/w500-h229-no/PaceByte.png" width = 500px><br><br>
                 <br><br><br>
                 
                 <form method="POST" action="/people">
