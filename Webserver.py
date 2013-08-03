@@ -48,6 +48,16 @@ def hello():
                      <br>
                      <br>
                      Please send your feedback to: <a href="mailto:'admin@pacebyte.com'">Pacebyte administrator</a>
+                     <script>
+                      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+                          })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+                          ga('create', 'UA-42935531-1', 'pacebyte.com');
+                          ga('send', 'pageview');
+
+                </script>
                 </center>
               </form>'''
 
@@ -60,7 +70,16 @@ def About():
                 <br><br><h1> About</h1>
                 <body> 
                 <font size = 4> PaceByte is an online data mining and aggregation tool that generates write-ups using information available on the internet.
+                <script>
+                  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+                      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
+                      ga('create', 'UA-42935531-1', 'pacebyte.com');
+                      ga('send', 'pageview');
+
+                </script>
                     <br>
 
                  </body>
@@ -358,6 +377,18 @@ def PeopleSearch():
                                        
                 except Exception,err:
                     continue
+    if (Education is ""):
+        string = (Heading +"<font size = 6 color = #0080FF><u>"+"Summary:<br>"+"</u></font>" +"<font size=4>" +summary +
+                  "</font><br><br>" +"<font size = 6 color = #0080FF><u>Career:</u></font><br>" + Career + "<br><br>" +
+                  "<font size = 6 color = #0080FF><u>Main Content:</u></font><br>"
+                  + Main + "<br><br>" +"<center>" +End + "</center>")
+    if (Career is ""):
+        string = (Heading +"<font size = 6 color = #0080FF><u>"+"Summary:<br>"+"</u></font>" +"<font size=4>" +summary +
+                  "</font><br><br>"+"<font size = 6 color = #0080FF><u>Main Content:</u></font><br>"
+                  + Main + "<br><br>" +"<center>" +End + "</center>")
+    if (summary is ""):
+        string = (Heading + "<br><br>"+"<font size = 6 color = #0080FF><u>Main Content:</u></font><br>"
+                  + Main + "<br><br>" +"<center>" +End + "</center>")
     return (string)
 
 @app.route('/science', methods=['POST'])
@@ -573,12 +604,12 @@ def ScienceSearch():
                                        
                 except:
                    pass
+
     return (string)
 
 @app.errorhandler(500)
 def pageNotFound(error):
     nopage = ("<br><br><br><br><br><br>"+"<center><font size =6>Oops...your search timed out. Please refresh your page and try again.</font></center>")
     return (nopage)
-
 
 
