@@ -47,7 +47,7 @@ def hello():
                      <br>
                      <br>
                      <br>
-                     Please send your feedback to: <a href="mailto:'admin@pacebyte.com'">admin@pacebyte.com</a>
+                     Please send your feedback to: <a href="mailto:'admin@pacebyte.com'">Pacebyte administrator</a>
                 </center>
               </form>'''
 
@@ -71,7 +71,9 @@ def About():
 @app.route('/people', methods=['POST'])
 def PeopleSearch():
     try:
+        
         name = request.form.get('search')
+        name = name.title()
         name_s = name.split()
         al = len(name_s)
         if (al < 2):
@@ -205,7 +207,7 @@ def PeopleSearch():
                                             summary = (i.text +summary)            
                                         Main = (Main  +"</center>" + "<font size = 4>" +i.text + "<br><br> "+"</font>")
                                         print (Main)
-                                        string = (Heading +"<font size = 6 color = #0080FF><u>"+"Summary:<br>"+"</u></font>" +summary + "<br><br>" + "<font size = 6 color = #0080FF><u>Education:</u></font><br>" +Education + "<br><br>" + "<font size = 6 color = #0080FF><u>Career:</u></font><br>" + Career + "<br><br>" + "<font size = 6 color = #0080FF><u>Main Content:</u></font><br><br>"+ Main + "<br><br>" + End)
+                                        string = (Heading +"<font size = 6 color = #0080FF><u>"+"Summary:<br>"+"</u></font>" +"<font size=4>"+summary + "</font><br><br>" + "<font size = 6 color = #0080FF><u>Education:</u></font><br>" +Education + "<br><br>" + "<font size = 6 color = #0080FF><u>Career:</u></font><br>" + Career + "<br><br>" + "<font size = 6 color = #0080FF><u>Main Content:</u></font><br><br>"+ Main + "<br><br>" + End)
                                         print "In"
                                         body = body +i.text
                                         text = body
@@ -240,8 +242,8 @@ def PeopleSearch():
                                             ' '.join([i[1] for i in selected_sents]))
                                             if (sum) not in (summary):
                                                 if ("Born") in(sum):
-                                                    summary = ("<font size =10" + sum+"</font>" + summary)
-                                                summary = (summary + "<font size =10" + "</font>" + sum)
+                                                    summary = ("<font size =4"> + sum+"</font>" + summary)
+                                                summary = (summary + sum)
                                             print (summary)
                                             
                                         except Exception, err:
@@ -297,7 +299,7 @@ def PeopleSearch():
                              if ("born") in (i.text):
                                    summary = (i.text +summary)            
                              Main = (Main  +"</center>" + "<font size = 4>" +i.text + "<br><br> "+"</font>")                            
-                             string = (Heading +"<font size = 6 color = #0080FF><u>"+"Summary:<br>"+"</u></font>" +summary + "<br><br>" + "<font size = 6 color = #0080FF><u>Education:</u></font><br>" +Education + "<br><br>" + "<font size = 6 color = #0080FF><u>Career:</u></font><br>" + Career + "<br><br>" + "<font size = 6 color = #0080FF><u>Main Content:</u></font><br>"+ Main + "<br><br>" +"<center>" +End + "</center>")
+                             string = (Heading +"<font size = 6 color = #0080FF><u>"+"Summary:<br>"+"</u></font>" +"<font size=4>" +summary + "</font><br><br>" + "<font size = 6 color = #0080FF><u>Education:</u></font><br>" +Education + "<br><br>" + "<font size = 6 color = #0080FF><u>Career:</u></font><br>" + Career + "<br><br>" + "<font size = 6 color = #0080FF><u>Main Content:</u></font><br>"+ Main + "<br><br>" +"<center>" +End + "</center>")
                              return (string)
                              if QuerySplit[k] in i.text:
                                 if("@") not in i.text:
@@ -349,7 +351,7 @@ def PeopleSearch():
                                             print summary
                                         except Exception,err:
                                             continue
-                                        string = (Heading +"<font size = 6 color = #0080FF><u>"+"Summary:<br>"+"</u></font>" +summary + "<br><br>" + "<font size = 6 color = #0080FF><u>Education:</u></font><br>" +Education + "<br><br>" + "<font size = 6 color = #0080FF><u>Career:</u></font><br>" + Career + "<br><br>" + Main + "<br><br>" +"<center>" +End+"</center>")                                        
+                                        string = (Heading +"<font size = 6 color = #0080FF><u>"+"Summary:<br>"+"</u></font>" + "<font size=4>"+summary + "</font>"+"<br><br>" + "<font size = 6 color = #0080FF><u>Education:</u></font><br>" +Education + "<br><br>" + "<font size = 6 color = #0080FF><u>Career:</u></font><br>" + Career + "<br><br>" + Main + "<br><br>" +"<center>" +End+"</center>")                                        
                                                                            
                                         print "Yes"
                     continue    
@@ -363,6 +365,7 @@ def ScienceSearch():
     body = ""
     summary =""
     name = request.form.get('search')
+    name = name.title()
     name_s = name.split()
     al = len(name_s)
     if (al <2):
@@ -465,7 +468,7 @@ def ScienceSearch():
                     for i in dem:
                         
                                     Mains = (Mains  +"</center>" + "<font size = 4>" +i.text + "<br><br> "+"</font>")  
-                                    string = (Heading +"<font size = 6 color = #0080FF><u>"+"Summary:<br>"+"</u></font>" + summary + "<br><br>" +"<font size = 6 color = #0080FF><u>Main Content:</u></font><br><br>"+ Mains)
+                                    string = (Heading +"<font size = 6 color = #0080FF><u>"+"Summary:<br>"+"</u></font>" +"font size=4>" +summary + "</font><br><br>" +"<font size = 6 color = #0080FF><u>Main Content:</u></font><br><br>"+ Mains)
                                     body = (body +i.text)
                                     text = (body)
                                         
@@ -532,7 +535,7 @@ def ScienceSearch():
                     for i in dem:
                      
                             Mains = (Mains  +"</center>" + "<font size = 4>" +i.text + "<br><br> "+"</font>")  
-                            string = (Heading +"<font size = 6 color = #0080FF><u>"+"Summary:<br>"+"</u></font>" + summary + "<br><br>" +"<font size = 6 color = #0080FF><u>Main Content:</u></font><br><br>"+ Mains)
+                            string = (Heading +"<font size = 6 color = #0080FF><u>Summary:<br></u></font><font size =4>" + summary + "</font><br><br>" +"<font size = 6 color = #0080FF><u>Main Content:</u></font><br><br>"+ Mains)
                             body = body +i.text
                             text = body
                                         
@@ -563,8 +566,7 @@ def ScienceSearch():
                                             selected_sents = sorted(scored_sents[:num_to_extract], key=lambda tup: tup[2])
                                         
                                             sum = '%s' % (' '.join([i[1] for i in selected_sents]))
-                                            summary = (summary +sum +"<br>")
-                                            summary = "Hey"
+                                            summary = ("<font size=4>"+summary +sum +"</font><br>")
                             except:
                                 continue
                     continue                            
@@ -579,4 +581,5 @@ def pageNotFound(error):
     return (nopage)
 
 
+app.run(host='localhost',port=8080)
 
