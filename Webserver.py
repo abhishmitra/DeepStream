@@ -26,7 +26,9 @@ def hello():
     return ''' <a href= /about>About</a>
                 <center><br><br><img src="https://lh5.googleusercontent.com/-MISGJsdATlo/Ufo2xq2lGfI/AAAAAAAAAbk/3lG9hKOSN5A/w500-h229-no/PaceByte.png" width = 500px><br><br>
                 <br><br><br>
+                <head>
                 <meta name="msvalidate.01" content="C0A6DA20A34D64388F0FA37AD2028052" />
+                </head>
                 <form method="POST" action="/people">
                     <font size = "4">I am looking for?</font><br>
                     <font size = 2>Please enter atleast two words. </font><br><br>
