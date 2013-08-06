@@ -449,6 +449,48 @@ def ScienceSearch():
                     a = myopener.retrieve(myUrl['unescapedUrl'],str(count)+'.jpg')
         myopener.retrieve(myUrl['unescapedUrl'],str(count)+'.jpg')
 
+#Scanning for formulae
+        
+    # Define search term
+    searchTerm = (raw + 'formulae')
+
+    # Replace spaces ' ' in search term for '%20' in order to comply with request
+    searchTerm = searchTerm.replace(' ','%20')
+
+
+    # Start FancyURLopener with defined version 
+    class MyOpener(FancyURLopener): 
+        version = 'Mozilla/5.0 (Windows; U; Windows NT 5.1; it; rv:1.8.1.11) Gecko/20071127 Firefox/2.0.0.11'
+    myopener = MyOpener()
+
+    i = 0
+    # Set count to 0
+    count= 0
+
+    for i in range(0,1):
+        # Notice that the start changes for each iteration in order to request a new set of images for each loop
+        url = ('https://ajax.googleapis.com/ajax/services/search/images?' + 'v=1.0&q='+searchTerm+'&start='+str(i*4)+'&userip=MyIP')
+        reques1 = urllib2.Request(url, None, {'Referer': 'testing'})
+        response = urllib2.urlopen(reques1)
+
+        # Get results using JSON
+        results = simplejson.load(response)
+        data = results['responseData']
+        dataInfo = data['results']
+
+        # Iterate for each result and get unescaped url
+        for myUrl in dataInfo:
+            count = count + 1
+            d = count
+            print myUrl['unescapedUrl']
+            picfor = myUrl['unescapedUrl']
+            for i in range (0,2):
+                if i is 2:
+                    a = myopener.retrieve(myUrl['unescapedUrl'],str(count)+'.jpg')
+        myopener.retrieve(myUrl['unescapedUrl'],str(count)+'.jpg')
+
+
+    #scanning done
     
 
     adjApp = ['applicat','used in']
@@ -481,7 +523,7 @@ def ScienceSearch():
     i = 0
     flag = 0
     Title = raw
-    Heading = ("<center><font size = 14> " + raw + "</font><br><br><img src='" + picture + "' width =400px></center><br><br>")
+    Heading = ("<center><font size = 14> " + raw + "</font><br><br><img src='" + picture + "' width =400px><br><br><img src='" + picfor + "' width =400px></center><br><br>")
     for result in results :
         
         url = result['url']
@@ -612,4 +654,4 @@ def pageNotFound(error):
     nopage = ("<br><br><br><br><br><br>"+"<center><font size =6>Oops...your search timed out. Please refresh your page and try again.</font></center>")
     return (nopage)
 
-
+app.run(host='localhost',port=8080)
