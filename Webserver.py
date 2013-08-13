@@ -2,6 +2,7 @@ import os
 # -*- coding: cp1252 -*-
 import codecs
 import time
+import requests
 import urllib2
 import urllib
 import json as m_json
@@ -17,18 +18,44 @@ from collections import Counter
 from math import log10
 # -*- coding: utf-8 *-*
 from flask import Flask, request, Response
+import nltk.data
 
 app = Flask(__name__)
 profanity = ['fuck','asshole','sex','faggot','negro','nigger','boob','tit']
+
+URLA = "https://mykey:mykey@api.datamarket.azure.com/Bing/Search/Web?$format=json&Query=%(q)s"
+API_KEY = 'WdxgHLzMYWAsYipg/tv/RpK1mFk5YhuFeLQZxH2I1Uw'
+
+def requester(que, **params):
+    que = ('%27'+que+ '%27')
+    r = requests.get(URLA % {'q': que}, auth=('', API_KEY))
+    return [res['Url'] for res in r.json()['d']['results']]
+
+def splitParagraphIntoSentences(paragraph):
+    import re
+
+    sentenceEnders = re.compile('[.!?][\s]{1,2}(?=[A-Z])')
+    sentenceList = sentenceEnders.split(paragraph)
+    return sentenceList
+    if __name__ == '__main__':
+        mylist = []
+        sentences = splitParagraphIntoSentences(text)
+        for s in sentences:
+            mylist.append(s.strip())
+            for i in mylist:
+                print i
 
 @app.route('/')
 def hello():
     return ''' <a href= /about>About</a>
                 <center><br><br><img src="https://lh5.googleusercontent.com/-MISGJsdATlo/Ufo2xq2lGfI/AAAAAAAAAbk/3lG9hKOSN5A/w500-h229-no/PaceByte.png" width = 500px><br><br>
                 <br><br><br>
+
+                
                 <head>
-                <meta name="msvalidate.01" content="C0A6DA20A34D64388F0FA37AD2028052" />
+		<meta name="msvalidate.01" content="C0A6DA20A34D64388F0FA37AD2028052" />
                 </head>
+                
                 <form method="POST" action="/people">
                     <font size = "4">I am looking for?</font><br>
                     <font size = 2>Please enter atleast two words. </font><br><br>
@@ -92,8 +119,8 @@ def About():
 @app.route('/people', methods=['POST'])
 def PeopleSearch():
     try:
-        
         name = request.form.get('search')
+        print (name)
         name = name.title()
         name_s = name.split()
         al = len(name_s)
@@ -120,7 +147,7 @@ def PeopleSearch():
 
         searchTerm = searchTerm.replace(' ','%20')
         
-
+        print "hi"
         class MyOpener(FancyURLopener): 
             version = 'Mozilla/5.0 (Windows; U; Windows NT 5.1; it; rv:1.8.1.11) Gecko/20071127 Firefox/2.0.0.11'
         myopener = MyOpener()
@@ -147,6 +174,7 @@ def PeopleSearch():
                     if i is 2:
                         a = myopener.retrieve(myUrl['unescapedUrl'],str(count)+'.jpg')
             myopener.retrieve(myUrl['unescapedUrl'],str(count)+'.jpg')
+
 
     except Exception,err:
         pass
@@ -177,21 +205,22 @@ def PeopleSearch():
     jet = " "
     
     #First Search
-    
-    query = urllib.urlencode ( { 'q' : 'biography '+query } )
-    
-    
-    response = urllib.urlopen ( 'http://ajax.googleapis.com/ajax/services/search/web?v=1.0&' + query ).read()
-    json = m_json.loads ( response )
-    results = json [ 'responseData' ] [ 'results' ]
+    quer =('"' +name+ '"')
+    print (quer)
+    o = requester(quer)
+    print o
     i = 0
     flag = 0
     Title = raw
     Heading = ("<img src='https://lh5.googleusercontent.com/-cjODD9V7AXI/UerIKznIVNI/AAAAAAAAAaU/dSi288GNIr4/w500-h229-no/PaceByte.png' width = 200px> + <center><font size = 14> " + raw + "</font><br><br><img src='" + picture + "' width =400px></center><br><br>")
     body = ""
     Main = ""
-    for result in results :
-        url = result['url']
+    for f in range(0,len(o)-1):
+        if (f>10):
+            break
+        print "Going"
+        url = o[f]
+        print url
         if ('wikipedia') not in (url):              #Removes Wikipedia Entries
             if ('youtube') not in (url):
                 ourUrl = opener.open(url).read()
@@ -206,7 +235,7 @@ def PeopleSearch():
                 URL = url
                 try:
                     for i in dem:
-                      if (i.text) not in string:
+                      if (i.text) not in Main:
                          for k in range (l ,QSL-1):
                             if len(i.text)not in range(0,150):
                               if QuerySplit[k] in i.text:
@@ -215,20 +244,20 @@ def PeopleSearch():
                                         for a in range (0,ael):
                                             if adjEdu[a] in (i.text):
                                                 if (i.text) not in (Education):
-                                                    Education = (Education +"<font size =4>" + i.text +"</font>" +"<br><br>")
+                                                    Education = (Education + i.text )
                                                     continue
                                                 
                                         for a in range (0,acl):
                                             if adjCareer[a] in (i.text):
                                                 if (i.text) not in (Career):
-                                                    Career = (Career +"<font size =4>" + i.text +"</font>" +"<br><br>")
+                                                    Career = (Career + i.text)
                                                     continue
                                                     
                                         if ("born") in (i.text):
                                             summary = (i.text +summary)            
                                         Main = (Main  +"</center>" + "<font size = 4>" +i.text + "<br><br> "+"</font>")
                                         print (Main)
-                                        string = (Heading +"<font size = 6 color = #0080FF><u>"+"Summary:<br>"+"</u></font>" +"<font size=4>"+summary + "</font><br><br>" + "<font size = 6 color = #0080FF><u>Education:</u></font><br>" +Education + "<br><br>" + "<font size = 6 color = #0080FF><u>Career:</u></font><br>" + Career + "<br><br>" + "<font size = 6 color = #0080FF><u>Main Content:</u></font><br><br>"+ Main + "<br><br>" + End)
+                                        
                                         print "In"
                                         body = body +i.text
                                         text = body
@@ -277,120 +306,28 @@ def PeopleSearch():
                 except Exception,err:
                     continue
     
-    #Second Search
-    query = urllib.urlencode ( { 'q' : query + " born"} )
     
     
-    response = urllib.urlopen ( 'http://ajax.googleapis.com/ajax/services/search/web?v=1.0&' + query ).read()                           
-    json = m_json.loads ( response )
-    results = json [ 'responseData' ] [ 'results' ]
-    i = 0
-    flag = 0
-    Title = raw
-    Heading = ("<center><font size = 14> " + raw + "</font><br><br><img src='" + picture + "' width =400px></center><br><br>")
-        
-    for result in results :
-        url = result['url']
-        if ('wikipedia') and ('biography')not in (url):              #Removes Wikipedia Entries
-            if ('youtube') not in (url):                
-                ourUrl = opener.open(url).read()
-                soup = BeautifulSoup(ourUrl)
-                dem = soup.findAll('p')
-                tex = soup.title.string
-                Main = (Main + "<a href='" + url + "'>"+ "<font size = 4>" + tex +"</font>" +"</a>" +"<br><br>")
-                print ( url )
-                print query
-                backurl = " "
-                URL = url
-                try:
-                    for i in dem:
-                         al = len(i.text)
-                         for k in range (l ,QSL-1):
-                             for a in range (0,8):
-                                    if adjEdu[a] in (i.text):
-                                        if (i.text) not in (Education):
-                                            Education = (Education +"<font size =4>" + i.text +"</font>" +"<br><br>")
-                                            continue
-                                            print Education
-                             for a in range (0,11):
-                                    if adjCareer[a] in (i.text):
-                                        if (i.text) not in (Career):
-                                            Career = (Career +"<font size =4>" + i.text +"</font>" +"<br><br>")
-                                            continue
-                             if ("born") in (i.text):
-                                   summary = (i.text +summary)            
-                             Main = (Main  +"</center>" + "<font size = 4>" +i.text + "<br><br> "+"</font>")                            
-                             string = (Heading +"<font size = 6 color = #0080FF><u>"+"Summary:<br>"+"</u></font>" +"<font size=4>" +summary + "</font><br><br>" + "<font size = 6 color = #0080FF><u>Education:</u></font><br>" +Education + "<br><br>" + "<font size = 6 color = #0080FF><u>Career:</u></font><br>" + Career + "<br><br>" + "<font size = 6 color = #0080FF><u>Main Content:</u></font><br>"+ Main + "<br><br>" +"<center>" +End + "</center>")
-                             return (string)
-                             if QuerySplit[k] in i.text:
-                                if("@") not in i.text:
-                                  if("#") not in i.text:
-                                     if ("(") not in i.text:
-                                       if ("http") not in i.text:
-                                        Main = (Main  +"</center>" + i.text + "<br><br> ")
-                                        print "In"
-                                        body = body +i.text
-                                        text = body
-                                        
-                                        try:
-                                            
-                                            sentences = sent_tokenize(text)
-                                            tekan = len(sentences)*0.5
-                                            print len(sentences)
-                                            collections_tokens = word_tokenize(text)
-                                            collection_counter = Counter(collections_tokens)
-                                            sent_saliences = []
-                                            scored_sents = []
-                                            num_to_extract = 1
-                                            
-                                            for index, sentence in enumerate(sentences):
-                                                sent_salience = 0
-                                                sent_tokens = word_tokenize(sentence)
-                                                sent_counter = Counter(sent_tokens)
-                                                for token in sent_tokens:
-                                                    tf = sent_counter[token]
-                                                    idf = log10(len(sentences) / sent_counter[token])
-                                                    tfidf = tf * idf
-                                                    sent_salience += tfidf
-                                                normalized_salience = sent_salience / len(sent_tokens)
-                                                sent_saliences.append(normalized_salience)
-                                                scored_sents.append((normalized_salience, sentence, index))
-
-                                            scored_sents.sort(key=lambda tup: tup[0], reverse=True)
-                                            selected_sents = sorted(scored_sents[:num_to_extract], key=lambda tup: tup[2])
-                                        
-                                            sum = '%s' % (
-                                            ' '.join([i[1] for i in selected_sents]))
-                                            if (sum) not in (summary):
-                                                if ("Born") in (i.text):
-                                                    summary = (i.text +summary)
-                                                if ("Born") in(sum):
-                                                    print "Born is Here"
-                                                    summary = (sum+summary)
-                                                else:
-                                                    summary = (summary+sum)
-                                            print summary
-                                        except Exception,err:
-                                            continue
-                                        string = (Heading +"<font size = 6 color = #0080FF><u>"+"Summary:<br>"+"</u></font>" + "<font size=4>"+summary + "</font>"+"<br><br>" + "<font size = 6 color = #0080FF><u>Education:</u></font><br>" +Education + "<br><br>" + "<font size = 6 color = #0080FF><u>Career:</u></font><br>" + Career + "<br><br>" + Main + "<br><br>" +"<center>" +End+"</center>")                                        
-                                                                           
-                                        print "Yes"
-                    continue    
-                                       
-                except Exception,err:
-                    continue
-    if (Education is ""):
-        string = (Heading +"<font size = 6 color = #0080FF><u>"+"Summary:<br>"+"</u></font>" +"<font size=4>" +summary +
-                  "</font><br><br>" +"<font size = 6 color = #0080FF><u>Career:</u></font><br>" + Career + "<br><br>" +
-                  "<font size = 6 color = #0080FF><u>Main Content:</u></font><br>"
-                  + Main + "<br><br>" +"<center>" +End + "</center>")
-    if (Career is ""):
-        string = (Heading +"<font size = 6 color = #0080FF><u>"+"Summary:<br>"+"</u></font>" +"<font size=4>" +summary +
-                  "</font><br><br>"+"<font size = 6 color = #0080FF><u>Main Content:</u></font><br>"
-                  + Main + "<br><br>" +"<center>" +End + "</center>")
-    if (summary is ""):
-        string = (Heading + "<br><br>"+"<font size = 6 color = #0080FF><u>Main Content:</u></font><br>"
-                  + Main + "<br><br>" +"<center>" +End + "</center>")
+    Ed = ""
+    a = splitParagraphIntoSentences(Education)
+    
+    for i in range (0,len(a)-1):
+        for f in range (0,ael):
+            if adjEdu[f] in (a[i]):
+                Ed = (Ed + a[i] +"<br>")
+                break
+    ca = ""
+    a = splitParagraphIntoSentences(Career)
+    for i in range (0,len(a)-1):
+        for f in range (0,acl):
+            if adjCareer[f] in (a[i]):
+                ca = (ca + a[i] +"<br>")  
+                break
+    
+    string = (Heading +"<font size = 6 color = #0080FF><u>"+"Summary:<br>"+"</u></font>" +"<font size=4>"+summary + "</font><br><br>"
+              + "<font size = 6 color = #0080FF><u>Education:</u></font><br><font size=4>" +Ed + "</font><br><br>" + "<font size = 6 color = #0080FF><u>Career:</u></font><br><font size=4>"
+              + ca + "</font><br><br>" + "<font size = 6 color = #0080FF><u>Main Content:</u></font><br><br>"+ Main + "<br><br>" + End)
+    
     return (string)
 
 @app.route('/science', methods=['POST'])
@@ -451,10 +388,10 @@ def ScienceSearch():
                     a = myopener.retrieve(myUrl['unescapedUrl'],str(count)+'.jpg')
         myopener.retrieve(myUrl['unescapedUrl'],str(count)+'.jpg')
 
-#Scanning for formulae
-        
-    # Define search term
-    searchTerm = (raw + 'formulae')
+#New Scan for formula
+
+     # Define search term
+    searchTerm = (raw + 'equation')
 
     # Replace spaces ' ' in search term for '%20' in order to comply with request
     searchTerm = searchTerm.replace(' ','%20')
@@ -493,7 +430,6 @@ def ScienceSearch():
 
 
     #scanning done
-    
 
     adjApp = ['applicat','used in']
     aal = (len(adjApp)-1)
@@ -516,16 +452,14 @@ def ScienceSearch():
     jet = " "
     
     #First Search
-    query = urllib.urlencode ( { 'q' : 'what is '+query } )
-    
-    
+    query = urllib.urlencode ( { 'q' : 'what is '+query } )  
     response = urllib.urlopen ( 'http://ajax.googleapis.com/ajax/services/search/web?v=1.0&' + query ).read()                           
     json = m_json.loads ( response )
     results = json [ 'responseData' ] [ 'results' ]
     i = 0
     flag = 0
     Title = raw
-    Heading = ("<center><font size = 14> " + raw + "</font><br><br><img src='" + picture + "' width =400px><br><br><img src='" + picfor + "' width =400px></center><br><br>")
+    Heading = ("<center><font size = 14> " + raw + "</font><br><br><img src='" + picture + "' width =400px><br><br></center>"+"<font size = 6 color = #0080FF><u>Concept:</font></u><br>" +"<img src='" + picfor + "' width =400px><br><br>")
     for result in results :
         
         url = result['url']
@@ -541,9 +475,9 @@ def ScienceSearch():
                 URL = url
                 try:
                     for i in dem:
-                        
+                                    print (url)
                                     Mains = (Mains  +"</center>" + "<font size = 4>" +i.text + "<br><br> "+"</font>")  
-                                    string = (Heading +"<font size = 6 color = #0080FF><u>"+"Summary:<br>"+"</u></font>" +"font size=4>" +summary + "</font><br><br>" +"<font size = 6 color = #0080FF><u>Main Content:</u></font><br><br>"+ Mains)
+                                    
                                     body = (body +i.text)
                                     text = (body)
                                         
@@ -574,7 +508,8 @@ def ScienceSearch():
                                             selected_sents = sorted(scored_sents[:num_to_extract], key=lambda tup: tup[2])
                                         
                                             sum = '%s' % (' '.join([i[1] for i in selected_sents]))
-                                            #summary = (summary + sum)
+                                            if (sum) not in summary:
+                                                summary = ("<font size=4>"+summary +"<br>"+ sum + "</font>")
 
                                             
 
@@ -608,16 +543,16 @@ def ScienceSearch():
                 URL = url
                 try:
                     for i in dem:
-                     
+                            print (url)
                             Mains = (Mains  +"</center>" + "<font size = 4>" +i.text + "<br><br> "+"</font>")  
-                            string = (Heading +"<font size = 6 color = #0080FF><u>Summary:<br></u></font><font size =4>" + summary + "</font><br><br>" +"<font size = 6 color = #0080FF><u>Main Content:</u></font><br><br>"+ Mains)
+                           
                             body = body +i.text
                             text = body
                                         
                             try:
                                             sentences = sent_tokenize(text)
                                             tekan = len(sentences)*0.5
-                                            print len(sentences)
+        
                                             collections_tokens = word_tokenize(text)
                                             collection_counter = Counter(collections_tokens)
                                             sent_saliences = []
@@ -639,9 +574,9 @@ def ScienceSearch():
 
                                             scored_sents.sort(key=lambda tup: tup[0], reverse=True)
                                             selected_sents = sorted(scored_sents[:num_to_extract], key=lambda tup: tup[2])
-                                        
                                             sum = '%s' % (' '.join([i[1] for i in selected_sents]))
-                                            summary = ("<font size=4>"+summary +sum +"</font><br>")
+                                            if (sum) not in summary:
+                                                summary = ("<font size=4>"+summary +"<br>"+ sum + "2nd</font><br>")
                             except:
                                 continue
                     continue                            
@@ -649,11 +584,17 @@ def ScienceSearch():
                 except:
                    pass
 
+    string = (Heading +"<font size = 6 color = #0080FF><u>"+"Summary:<br>"+"</u></font>" +"<font size=4>" +
+              summary +"</font><br><br>" +"<font size = 6 color = #0080FF><u>Main Content:</u></font><br><br>"
+              + Mains)
+    
     return (string)
 
 @app.errorhandler(500)
 def pageNotFound(error):
     nopage = ("<br><br><br><br><br><br>"+"<center><font size =6>Oops...your search timed out. Please refresh your page and try again.</font></center>")
     return (nopage)
+
+app.run(host='localhost',port=8080)
 
 
