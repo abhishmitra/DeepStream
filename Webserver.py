@@ -372,16 +372,16 @@ def ScienceSearch():
         for i in range(0,1):
         # Notice that the start changes for each iteration in order to request a new set of images for each loop
            url = ('https://ajax.googleapis.com/ajax/services/search/images?' + 'v=1.0&q='+searchTerm+'&start='+str(i*4)+'&userip=MyIP')
-            reques1 = urllib2.Request(url, None, {'Referer': 'testing'})
-            response = urllib2.urlopen(reques1)
+           reques1 = urllib2.Request(url, None, {'Referer': 'testing'})
+           response = urllib2.urlopen(reques1)
 
         # Get results using JSON
-            results = simplejson.load(response)
-            data = results['responseData']
-            dataInfo = data['results']
+           results = simplejson.load(response)
+           data = results['responseData']
+           dataInfo = data['results']
 
         # Iterate for each result and get unescaped url
-            for myUrl in dataInfo:
+           for myUrl in dataInfo:
                 count = count + 1
                 d = count
                 print myUrl['unescapedUrl']
@@ -389,7 +389,7 @@ def ScienceSearch():
                 for i in range (0,2):
                     if i is 2:
                         a = myopener.retrieve(myUrl['unescapedUrl'],str(count)+'.jpg')
-            myopener.retrieve(myUrl['unescapedUrl'],str(count)+'.jpg')
+                myopener.retrieve(myUrl['unescapedUrl'],str(count)+'.jpg')
     except Exception,err:
         pass
 
@@ -602,3 +602,4 @@ def pageNotFound(error):
     return (nopage)
 
 
+app.run(host='localhost',port=8080)
