@@ -155,16 +155,17 @@ def PeopleSearch():
         i = 0
         count= 0
         
-            
-        for i in range(0,1):
+        try:    
+         for i in range(0,1):
             url = ('https://ajax.googleapis.com/ajax/services/search/images?' + 'v=1.0&q='+searchTerm+'&start='+str(i*4)+'&userip=MyIP')
             reques1 = urllib2.Request(url, None, {'Referer': 'testing'})
             response = urllib2.urlopen(reques1)
-
+            print "picture"
             results = simplejson.load(response)
             data = results['responseData']
+            print data
             dataInfo = data['results']
-
+            print dataInfo
             for myUrl in dataInfo:
                 count = count + 1
                 d = count
@@ -174,6 +175,8 @@ def PeopleSearch():
                     if i is 2:
                         a = myopener.retrieve(myUrl['unescapedUrl'],str(count)+'.jpg')
             myopener.retrieve(myUrl['unescapedUrl'],str(count)+'.jpg')
+        except Exception,err:
+            pass
 
 
     except Exception,err:
@@ -594,5 +597,5 @@ def ScienceSearch():
 def pageNotFound(error):
     nopage = ("<br><br><br><br><br><br>"+"<center><font size =6>Oops...your search timed out. Please refresh your page and try again.</font></center>")
     return (nopage)
-
+app.run(host='localhost',port=8080)
 
