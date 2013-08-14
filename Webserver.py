@@ -352,85 +352,88 @@ def ScienceSearch():
     Mains = ""
     query = name
     raw = query
-            
+    try:        
     # Define search term
-    searchTerm = (raw)
+        searchTerm = (raw)
 
     # Replace spaces ' ' in search term for '%20' in order to comply with request
-    searchTerm = searchTerm.replace(' ','%20')
+        searchTerm = searchTerm.replace(' ','%20')
 
 
     # Start FancyURLopener with defined version 
-    class MyOpener(FancyURLopener): 
-        version = 'Mozilla/5.0 (Windows; U; Windows NT 5.1; it; rv:1.8.1.11) Gecko/20071127 Firefox/2.0.0.11'
-    myopener = MyOpener()
+        class MyOpener(FancyURLopener): 
+            version = 'Mozilla/5.0 (Windows; U; Windows NT 5.1; it; rv:1.8.1.11) Gecko/20071127 Firefox/2.0.0.11'
+        myopener = MyOpener()
 
-    i = 0
+        i = 0
     # Set count to 0
-    count= 0
+        count= 0
 
-    for i in range(0,1):
+        for i in range(0,1):
         # Notice that the start changes for each iteration in order to request a new set of images for each loop
-        url = ('https://ajax.googleapis.com/ajax/services/search/images?' + 'v=1.0&q='+searchTerm+'&start='+str(i*4)+'&userip=MyIP')
-        reques1 = urllib2.Request(url, None, {'Referer': 'testing'})
-        response = urllib2.urlopen(reques1)
+           url = ('https://ajax.googleapis.com/ajax/services/search/images?' + 'v=1.0&q='+searchTerm+'&start='+str(i*4)+'&userip=MyIP')
+            reques1 = urllib2.Request(url, None, {'Referer': 'testing'})
+            response = urllib2.urlopen(reques1)
 
         # Get results using JSON
-        results = simplejson.load(response)
-        data = results['responseData']
-        dataInfo = data['results']
+            results = simplejson.load(response)
+            data = results['responseData']
+            dataInfo = data['results']
 
         # Iterate for each result and get unescaped url
-        for myUrl in dataInfo:
-            count = count + 1
-            d = count
-            print myUrl['unescapedUrl']
-            picture = myUrl['unescapedUrl']
-            for i in range (0,2):
-                if i is 2:
-                    a = myopener.retrieve(myUrl['unescapedUrl'],str(count)+'.jpg')
-        myopener.retrieve(myUrl['unescapedUrl'],str(count)+'.jpg')
+            for myUrl in dataInfo:
+                count = count + 1
+                d = count
+                print myUrl['unescapedUrl']
+                picture = myUrl['unescapedUrl']
+                for i in range (0,2):
+                    if i is 2:
+                        a = myopener.retrieve(myUrl['unescapedUrl'],str(count)+'.jpg')
+            myopener.retrieve(myUrl['unescapedUrl'],str(count)+'.jpg')
+    except Exception,err:
+        pass
 
 #New Scan for formula
-
+    try:
      # Define search term
-    searchTerm = (raw + 'equation')
+        searchTerm = (raw + 'equation')
 
     # Replace spaces ' ' in search term for '%20' in order to comply with request
-    searchTerm = searchTerm.replace(' ','%20')
+        searchTerm = searchTerm.replace(' ','%20')
 
 
     # Start FancyURLopener with defined version 
-    class MyOpener(FancyURLopener): 
-        version = 'Mozilla/5.0 (Windows; U; Windows NT 5.1; it; rv:1.8.1.11) Gecko/20071127 Firefox/2.0.0.11'
-    myopener = MyOpener()
+        class MyOpener(FancyURLopener): 
+            version = 'Mozilla/5.0 (Windows; U; Windows NT 5.1; it; rv:1.8.1.11) Gecko/20071127 Firefox/2.0.0.11'
+        myopener = MyOpener()
 
-    i = 0
+        i = 0
     # Set count to 0
-    count= 0
+        count= 0
 
-    for i in range(0,1):
-        # Notice that the start changes for each iteration in order to request a new set of images for each loop
-        url = ('https://ajax.googleapis.com/ajax/services/search/images?' + 'v=1.0&q='+searchTerm+'&start='+str(i*4)+'&userip=MyIP')
-        reques1 = urllib2.Request(url, None, {'Referer': 'testing'})
-        response = urllib2.urlopen(reques1)
+        for i in range(0,1):
+            # Notice that the start changes for each iteration in order to request a new set of images for each loop
+            url = ('https://ajax.googleapis.com/ajax/services/search/images?' + 'v=1.0&q='+searchTerm+'&start='+str(i*4)+'&userip=MyIP')
+            reques1 = urllib2.Request(url, None, {'Referer': 'testing'})
+            response = urllib2.urlopen(reques1)
 
         # Get results using JSON
-        results = simplejson.load(response)
-        data = results['responseData']
-        dataInfo = data['results']
+            results = simplejson.load(response)
+            data = results['responseData']
+            dataInfo = data['results']
 
         # Iterate for each result and get unescaped url
-        for myUrl in dataInfo:
-            count = count + 1
-            d = count
-            print myUrl['unescapedUrl']
-            picfor = myUrl['unescapedUrl']
-            for i in range (0,2):
-                if i is 2:
-                    a = myopener.retrieve(myUrl['unescapedUrl'],str(count)+'.jpg')
-        myopener.retrieve(myUrl['unescapedUrl'],str(count)+'.jpg')
-
+            for myUrl in dataInfo:
+                count = count + 1
+                d = count
+                print myUrl['unescapedUrl']
+                picfor = myUrl['unescapedUrl']
+                for i in range (0,2):
+                    if i is 2:
+                        a = myopener.retrieve(myUrl['unescapedUrl'],str(count)+'.jpg')
+            myopener.retrieve(myUrl['unescapedUrl'],str(count)+'.jpg')
+    except Exception,err:
+        pass
 
     #scanning done
 
