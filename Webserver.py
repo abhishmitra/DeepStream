@@ -28,6 +28,7 @@ API_KEY = 'WdxgHLzMYWAsYipg/tv/RpK1mFk5YhuFeLQZxH2I1Uw'
 
 def requester(que, **params):
     que = ('%27'+que+ '%27')
+    print que
     r = requests.get(URLA % {'q': que}, auth=('', API_KEY))
     return [res['Url'] for res in r.json()['d']['results']]
 
@@ -456,19 +457,20 @@ def ScienceSearch():
     v = 0
     Abst = "Nothing Here"
     jet = " "
-    
+    quer= query
     #First Search
-    query = urllib.urlencode ( { 'q' : 'what is '+query } )  
-    response = urllib.urlopen ( 'http://ajax.googleapis.com/ajax/services/search/web?v=1.0&' + query ).read()                           
-    json = m_json.loads ( response )
-    results = json [ 'responseData' ] [ 'results' ]
+    o = requester(quer)
+    
     i = 0
     flag = 0
     Title = raw
     Heading = ("<center><font size = 14> " + raw + "</font><br><br><img src='" + picture + "' width =400px><br><br></center>"+"<font size = 6 color = #0080FF><u>Concept:</font></u><br>" +"<img src='" + picfor + "' width =400px><br><br>")
-    for result in results :
-        
-        url = result['url']
+    for f in range(0,len(o)-1):
+        if (f>15):
+            break
+        print "Going"
+        url = o[f]
+        print url
         if ('wikipedia') not in (url):              #Removes Wikipedia Entries
             if ('youtube') not in (url):
                 ourUrl = opener.open(url).read()
@@ -529,66 +531,7 @@ def ScienceSearch():
     
                                 
         
-    #Second Search
-    querya = urllib.urlencode ( { 'q' : raw } )
-    print querya
-    response = urllib.urlopen ( 'http://ajax.googleapis.com/ajax/services/search/web?v=1.0&' + querya).read()
-    raw = querya
-    json = m_json.loads ( response )
-    results = json [ 'responseData' ] [ 'results' ]
-    i = 0
-    for result in results :
-        url = result['url']
-        if ('wikipedia') not in (url):              #Removes Wikipedia Entries
-            if ('youtube') not in (url):
-                ourUrl = opener.open(url).read()
-                soup = BeautifulSoup(ourUrl)
-                dem = soup.findAll('p')
-                tex = soup.title.string
-                Mains = (Mains + "<a href='" + url + "'>" + "<font size = 4>"+tex + "</font>"+"</a>" +"<br>")
-                URL = url
-                try:
-                    for i in dem:
-                            print (url)
-                            Mains = (Mains  +"</center>" + "<font size = 4>" +i.text + "<br><br> "+"</font>")  
-                           
-                            body = body +i.text
-                            text = body
-                                        
-                            try:
-                                            sentences = sent_tokenize(text)
-                                            tekan = len(sentences)*0.5
-        
-                                            collections_tokens = word_tokenize(text)
-                                            collection_counter = Counter(collections_tokens)
-                                            sent_saliences = []
-                                            scored_sents = []
-                                            num_to_extract = 1
-
-                                            for index, sentence in enumerate(sentences):
-                                                sent_salience = 0
-                                                sent_tokens = word_tokenize(sentence)
-                                                sent_counter = Counter(sent_tokens)
-                                                for token in sent_tokens:
-                                                    tf = sent_counter[token]
-                                                    idf = log10(len(sentences) / sent_counter[token])
-                                                    tfidf = tf * idf
-                                                    sent_salience += tfidf
-                                                normalized_salience = sent_salience / len(sent_tokens)
-                                                sent_saliences.append(normalized_salience)
-                                                scored_sents.append((normalized_salience, sentence, index))
-
-                                            scored_sents.sort(key=lambda tup: tup[0], reverse=True)
-                                            selected_sents = sorted(scored_sents[:num_to_extract], key=lambda tup: tup[2])
-                                            sum = '%s' % (' '.join([i[1] for i in selected_sents]))
-                                            if (sum) not in summary:
-                                                summary = ("<font size=4>"+summary +"<br>"+ sum + "2nd</font><br>")
-                            except:
-                                continue
-                    continue                            
-                                       
-                except:
-                   pass
+    
 
     string = (Heading +"<font size = 6 color = #0080FF><u>"+"Summary:<br>"+"</u></font>" +"<font size=4>" +
               summary +"</font><br><br>" +"<font size = 6 color = #0080FF><u>Main Content:</u></font><br><br>"
@@ -601,4 +544,5 @@ def pageNotFound(error):
     nopage = ("<br><br><br><br><br><br>"+"<center><font size =6>Oops...your search timed out. Please refresh your page and try again.</font></center>")
     return (nopage)
 
-
+app.run(host='localhost', port=8080)
+        
