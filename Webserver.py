@@ -65,6 +65,7 @@ def splitParagraphIntoSentences(paragraph):
                 print i
 
 def Ti(enter):
+    print "yo"
     sentence = nltk.word_tokenize(enter)
     sent = pos_tag(sentence)
     alpha = [s for s in sent if s[1] == 'NN'  ]
@@ -75,7 +76,7 @@ def Ti(enter):
     newm =[]
     for i in range(0,len(alpha)-1):
         newm.append (alpha[i][0])
-    print "yo"
+    
     counts = defaultdict(int)
     for x in newm:
         counts[x]+=1
