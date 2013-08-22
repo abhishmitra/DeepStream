@@ -15,3 +15,4 @@ virtualenv==1.9.1
 werkzeug==0.9.2
 xlrd==0.9.2
 requests==1.2.3
+http://nltk.github.com/nltk_data/packages/taggers/maxent_treebank_pos_tagger.zip
