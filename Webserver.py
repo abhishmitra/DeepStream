@@ -10,27 +10,18 @@ import os
 import sys
 from urllib import FancyURLopener
 import time
-from flask import Flask, request, Response
 from BeautifulSoup import BeautifulSoup
 import json as simplejson
 Soup = BeautifulSoup
 from nltk import sent_tokenize, word_tokenize
 from collections import Counter
-from collections import defaultdict
 from math import log10
 # -*- coding: utf-8 *-*
+from flask import Flask, request, Response
 import nltk.data
-from nltk.corpus import wordnet as wn
-from nltk import pos_tag
-import nltk
-syno =[]
-sentence = '''Mugabe rose to prominence in the 1960s as the Secretary General of the Zimbabwe African National Union (ZANU) during the conflict against the white-minority government of Ian Smith. Mugabe was a political prisoner in Rhodesia for more than 10 years between 1964 and 1974.[2] Upon release Mugabe, along with Edgar Tekere, left Rhodesia in 1975 to re-join the fight during the Rhodesian Bush War from bases in Mozambique.
-At the end of the war in 1979, Mugabe emerged as a hero in the minds of many Africans.[3][4] He won the general elections of 1980, the second in which the majority of black Africans participated. (The electoral system in Rhodesia had allowed black participation based on qualified franchise). Mugabe became the first Prime Minister after calling for reconciliation between formerly warring parties, including white Rhodesians and rival political groups.
-The years following Zimbabwe's independence saw a split between the two key parties who had fought alongside each other during the 1970s against the white minority rulers of Rhodesia. An armed conflict between Mugabe's government and followers of Joshua Nkomo's ZAPU erupted. Following the deaths of thousands, with neither faction able to defeat the other, the parties reached a landmark agreement leading to the creation of a new party, ZANU PF, a coalition between the two former rivals.[5]
-In 1998, Mugabe's government supported the Southern African Development Community's intervention in the Second Congo War by sending Zimbabwean troops to assist the government of Laurent-Désiré Kabila. Some commentators called Zimbabwe's intervention a tactic to bolster its economy by controlling the Congo's natural resources.[6]'''
-app = Flask(__name__)
-profanity = ['fuck','asshole','sex','faggot','negro','nigger','boob','tit','sex','shit','breast','porn']
 
+app = Flask(__name__)
+profanity = ['fuck','asshole','sex','faggot','negro','nigger','boob','tit']
 
 URLA = "https://mykey:mykey@api.datamarket.azure.com/Bing/Search/Web?$format=json&Query=%(q)s"
 API_KEY = 'WdxgHLzMYWAsYipg/tv/RpK1mFk5YhuFeLQZxH2I1Uw'
@@ -39,8 +30,6 @@ def requester(que, **params):
     que = ('%27'+que+ '%27')
     r = requests.get(URLA % {'q': que}, auth=('', API_KEY))
     return [res['Url'] for res in r.json()['d']['results']]
-
-
 
 def imagery(ima, **params):
     print "Yolo"
@@ -63,31 +52,6 @@ def splitParagraphIntoSentences(paragraph):
             mylist.append(s.strip())
             for i in mylist:
                 print i
-
-def Ti(enter):
-    sentence = nltk.word_tokenize(enter)
-    sent = pos_tag(sentence)
-    alpha = [s for s in sent if s[1] == 'NN'  ]
-    for i in range(0,len(alpha)-1):
-       for ss in wn.synsets(alpha[i][0]): # Each synset represents a diff concept.
-          syno.extend(ss.lemma_names)
-          word_counter = {}
-    newm =[]
-    for i in range(0,len(alpha)-1):
-        newm.append (alpha[i][0])
-
-    counts = defaultdict(int)
-    for x in newm:
-        counts[x]+=1
-    #print counts
-    popular_words = sorted(counts, key = counts.get, reverse = True)   
-    top = popular_words[:8]
-    #print top
-    results = []
-    for i in range(0, len(top)-1):
-        indx = sentence.index(top[i])
-        results.append(" ".join(sentence[indx-1:indx+2]))
-    return results
 
 @app.route('/')
 def hello():
@@ -222,7 +186,7 @@ def PeopleSearch():
     quer =('"' +name+ '"')
     print (quer)
     o = requester(quer)
-    #print o
+    print o
     i = 0
     flag = 0
     Title = raw
@@ -237,14 +201,12 @@ def PeopleSearch():
         print url
         if ('wikipedia') not in (url):              #Removes Wikipedia Entries
             if ('youtube') not in (url):
-                try:
-                    ourUrl = opener.open(url).read()
-                except Exception,err:
-                    pass
-                soup = BeautifulSoup(ourUrl)                
-                dem = soup.findAll('p')                
+                ourUrl = opener.open(url).read()
+                soup = BeautifulSoup(ourUrl)
+                dem = soup.findAll('p')
                 tex = soup.title.string
-                Main = (Main + "<a href='" + url + "'>"+ "<font size = 4>" + tex +"</font>" +"</a><br><br>")
+                
+                Main = (Main + "<a href='" + url + "'>"+ "<font size = 4>" + tex +"</font>" +"</a>" +"<br><br>")
                 print ( url )
                 print query
                 backurl = " "
@@ -270,46 +232,11 @@ def PeopleSearch():
                                                     continue
                                                     
                                         if ("born") in (i.text):
-                                            summary = (i.text +summary)
-                                        dip = i.text
-                                        al = Ti(dip)
-                                        j= 0
-                                        try:
-                                            for i in range (0,2):
-                                                if "(" in al[i]:
-                                                    al[i] = al[i].replace('(','')
-                                                if ")" in al[i]:
-                                                    al[i] = al[i].replace(')','')
-                                                if "'" in al[i]:
-                                                    al[i] = al[i].replace("'",'')
-                                                if '"' in al[i]:
-                                                    al[i] = al[i].replace('"','')
-                                                if ',' in al[i]:
-                                                    al[i] = al[i].replace(',','')
-                                                if '#' in al[i]:
-                                                    al[i] = al[i].replace('#','')
-                                                if '%' in al[i][0]:
-                                                    al[i] = al[i].replace('%','')
-                                                if '&' in al[i][0]:
-                                                    al[i] = al[i].replace('&','')
-                                                if ';' in al[i]:
-                                                    al[i] = al[i].replace(';','')
-                                        except:
-                                            continue
-                                            
-                                            
-                                        try:
-                                            deg = "#" +al[0] + "   #" +al[1] + "   #" + al[2]
-                                        except:
-                                            continue
-                                        print deg
-                                        print Main
-                                        Main = (Main  +"</center>" + "<font size=5
-                                                color=#0080FF >" + deg +"</font><br>" +dip +"</font>" +"<br><br></font>")
-                                        deg = ""
+                                            summary = (i.text +summary)            
+                                        Main = (Main  +"</center>" + "<font size = 4>" +i.text + "<br><br> "+"</font>")
                                         print (Main)
                                         
-                                        #print "In"
+                                        print "In"
                                         body = body +i.text
                                         text = body
                                         
@@ -529,7 +456,8 @@ def ScienceSearch():
                 Mains = (Mains + "<a href='" + url + "'>"+ "<font size = 4>" + tex +"</font>" +"</a>" +"<br><br>")
                 backurl = " "
                 URL = url
-                for i in dem:
+                try:
+                    for i in dem:
                                     print (url)
                                     Mains = (Mains  +"</center>" + "<font size = 4>" +i.text + "<br><br> "+"</font>")  
                                     
@@ -568,10 +496,13 @@ def ScienceSearch():
 
                                             
 
-                                                        
-                   
                                     except Exception,err:
-                                        pass
+                                        continue
+
+                    continue
+                   
+                except Exception,err:
+                    pass
     
                                 
      
@@ -585,5 +516,5 @@ def ScienceSearch():
 @app.errorhandler(500)
 def pageNotFound(error):
     nopage = ("<br><br><br><br><br><br>"+"<center><font size =6>Oops...your search timed out. Please refresh your page and try again.</font></center>")
+    
     return (nopage)
-
