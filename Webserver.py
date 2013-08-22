@@ -66,8 +66,9 @@ def splitParagraphIntoSentences(paragraph):
 
 def Ti(enter):
     sentence = nltk.word_tokenize(enter)
-    print "yaya ture"
+   
     sent = pos_tag(sentence)
+    print "yaya ture"
     alpha = [s for s in sent if s[1] == 'NN'  ]
     for i in range(0,len(alpha)-1):
        for ss in wn.synsets(alpha[i][0]): # Each synset represents a diff concept.
