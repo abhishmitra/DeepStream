@@ -42,7 +42,7 @@ def requester(que, **params):
 
 
 
-def imagery(ima, **params):
+def imagery(ima, **params): 
     print "Yolo"
     print ima
     r = requests.get(URLI % {'q': ima}, auth=('', API_KEY))
@@ -272,8 +272,9 @@ def PeopleSearch():
                                         if ("born") in (i.text):
                                             summary = (i.text +summary)
                                         dip = i.text
-                                        al = Ti(dip)
                                         print "Yo"
+                                        al = Ti(dip)
+                                        
                                         j= 0
                                         try:
                                             for i in range (0,2):
@@ -586,3 +587,5 @@ def ScienceSearch():
 def pageNotFound(error):
     nopage = ("<br><br><br><br><br><br>"+"<center><font size =6>Oops...your search timed out. Please refresh your page and try again.</font></center>")
     return (nopage)
+
+app.run(host='localhost',port=8080)
