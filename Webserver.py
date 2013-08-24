@@ -200,7 +200,7 @@ def PeopleSearch():
     #Imports Text
     Education =""
     End = ("<font size = 1><center>The information provided on this webpage does not belong to Pace Byte and has been re-quoted from other website whose urls have been embedded in the headline of the articles</center></font>")
-    alps = pos_tag((End)
+    alps = pos_tag((End))
     print alps
     Career =""
     print picture
@@ -591,3 +591,5 @@ def ScienceSearch():
 def pageNotFound(error):
     nopage = ("<br><br><br><br><br><br>"+"<center><font size =6>Oops...your search timed out. Please refresh your page and try again.</font></center>")
     return (nopage)
+
+app.run(host='localhost',port=8080)
