@@ -199,7 +199,7 @@ def PeopleSearch():
 
     #Imports Text
     Education =""
-    End = ("<font size = 1><center>The information provided on this webpage does not belong to Pace Byte and has been re-quoted from other website whose urls have been embedded in the headline of the articles</center></font>")
+    print End = ("<font size = 1><center>The information provided on this webpage does not belong to Pace Byte and has been re-quoted from other website whose urls have been embedded in the headline of the articles</center></font>")
     alps = pos_tag((End))
     print alps
     Career =""
