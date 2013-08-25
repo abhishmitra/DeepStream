@@ -31,6 +31,8 @@ In 1998, Mugabe's government supported the Southern African Development Communit
 app = Flask(__name__)
 profanity = ['fuck','asshole','sex','faggot','negro','nigger','boob','tit','sex','shit','breast','porn']
 
+nltk.data.path.append('./nltk_data/')
+
 
 URLA = "https://mykey:mykey@api.datamarket.azure.com/Bing/Search/Web?$format=json&Query=%(q)s"
 API_KEY = 'WdxgHLzMYWAsYipg/tv/RpK1mFk5YhuFeLQZxH2I1Uw'
@@ -592,4 +594,3 @@ def pageNotFound(error):
     nopage = ("<br><br><br><br><br><br>"+"<center><font size =6>Oops...your search timed out. Please refresh your page and try again.</font></center>")
     return (nopage)
 
-app.run(host='localhost',port=8080)
