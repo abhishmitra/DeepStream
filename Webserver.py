@@ -11,7 +11,7 @@ import sys
 from urllib import FancyURLopener
 import time
 from flask import Flask, request, Response
-from BeautifulSoup import BeautifulSoup
+from BeautifulSoup import BeautifulSoup, Comment
 import json as simplejson
 Soup = BeautifulSoup
 from nltk import sent_tokenize, word_tokenize
@@ -23,15 +23,15 @@ import nltk.data
 from nltk.corpus import wordnet as wn
 from nltk import pos_tag
 import nltk
+
 syno =[]
+hg = 0
 sentence = '''Mugabe rose to prominence in the 1960s as the Secretary General of the Zimbabwe African National Union (ZANU) during the conflict against the white-minority government of Ian Smith. Mugabe was a political prisoner in Rhodesia for more than 10 years between 1964 and 1974.[2] Upon release Mugabe, along with Edgar Tekere, left Rhodesia in 1975 to re-join the fight during the Rhodesian Bush War from bases in Mozambique.
 At the end of the war in 1979, Mugabe emerged as a hero in the minds of many Africans.[3][4] He won the general elections of 1980, the second in which the majority of black Africans participated. (The electoral system in Rhodesia had allowed black participation based on qualified franchise). Mugabe became the first Prime Minister after calling for reconciliation between formerly warring parties, including white Rhodesians and rival political groups.
 The years following Zimbabwe's independence saw a split between the two key parties who had fought alongside each other during the 1970s against the white minority rulers of Rhodesia. An armed conflict between Mugabe's government and followers of Joshua Nkomo's ZAPU erupted. Following the deaths of thousands, with neither faction able to defeat the other, the parties reached a landmark agreement leading to the creation of a new party, ZANU PF, a coalition between the two former rivals.[5]
 In 1998, Mugabe's government supported the Southern African Development Community's intervention in the Second Congo War by sending Zimbabwean troops to assist the government of Laurent-Désiré Kabila. Some commentators called Zimbabwe's intervention a tactic to bolster its economy by controlling the Congo's natural resources.[6]'''
 app = Flask(__name__)
 profanity = ['fuck','asshole','sex','faggot','negro','nigger','boob','tit','sex','shit','breast','porn']
-
-nltk.data.path.append('./nltk_data/')
 
 
 URLA = "https://mykey:mykey@api.datamarket.azure.com/Bing/Search/Web?$format=json&Query=%(q)s"
@@ -42,9 +42,26 @@ def requester(que, **params):
     r = requests.get(URLA % {'q': que}, auth=('', API_KEY))
     return [res['Url'] for res in r.json()['d']['results']]
 
+def check_for_div_parent(mark):
+    mark = mark.parent
+    if 'div' == mark.name:
+        return True
+    if 'html' == mark.name:
+        return False
+    return check_for_div_parent(mark)
 
 
-def imagery(ima, **params): 
+def check_for_div_parent(mark):
+    mark = mark.parent
+    if 'div' == mark.name:
+        print "hello"
+        return True
+    if 'html' == mark.name:
+        print "yop"
+        return False
+    return check_for_div_parent(mark)
+
+def imagery(ima, **params):
     print "Yolo"
     print ima
     r = requests.get(URLI % {'q': ima}, auth=('', API_KEY))
@@ -68,9 +85,7 @@ def splitParagraphIntoSentences(paragraph):
 
 def Ti(enter):
     sentence = nltk.word_tokenize(enter)
-   
     sent = pos_tag(sentence)
-    print "yaya ture"
     alpha = [s for s in sent if s[1] == 'NN'  ]
     for i in range(0,len(alpha)-1):
        for ss in wn.synsets(alpha[i][0]): # Each synset represents a diff concept.
@@ -79,7 +94,7 @@ def Ti(enter):
     newm =[]
     for i in range(0,len(alpha)-1):
         newm.append (alpha[i][0])
-    
+
     counts = defaultdict(int)
     for x in newm:
         counts[x]+=1
@@ -245,17 +260,25 @@ def PeopleSearch():
                     ourUrl = opener.open(url).read()
                 except Exception,err:
                     pass
-                soup = BeautifulSoup(ourUrl)                
-                dem = soup.findAll('p')                
+                soup = BeautifulSoup(ourUrl)
+                
+                for div in soup.findAll('div'):
+                        div.replaceWith(Comment(unicode(div)))
+                for link in soup.findAll('a', href=True):
+                        link.replaceWith(Comment(unicode(link)))
+                
+                dem = soup.findAll('p')
+                #print soup
+                print "yo"
                 tex = soup.title.string
                 Main = (Main + "<a href='" + url + "'>"+ "<font size = 4>" + tex +"</font>" +"</a><br><br>")
-                print ( url )
-                print query
+                
                 backurl = " "
                 URL = url
                 try:
                     for i in dem:
-                      if (i.text) not in Main:
+                       #print i.text
+                       if (i.text) not in Main:
                          for k in range (l ,QSL-1):
                             if len(i.text)not in range(0,150):
                               if QuerySplit[k] in i.text:
@@ -275,44 +298,11 @@ def PeopleSearch():
                                                     
                                         if ("born") in (i.text):
                                             summary = (i.text +summary)
-                                        dip = i.text
-                                        print "Yo"
-                                        al = Ti(dip)
+                                       
                                         
-                                        j= 0
-                                        try:
-                                            for i in range (0,2):
-                                                if "(" in al[i]:
-                                                    al[i] = al[i].replace('(','')
-                                                if ")" in al[i]:
-                                                    al[i] = al[i].replace(')','')
-                                                if "'" in al[i]:
-                                                    al[i] = al[i].replace("'",'')
-                                                if '"' in al[i]:
-                                                    al[i] = al[i].replace('"','')
-                                                if ',' in al[i]:
-                                                    al[i] = al[i].replace(',','')
-                                                if '#' in al[i]:
-                                                    al[i] = al[i].replace('#','')
-                                                if '%' in al[i][0]:
-                                                    al[i] = al[i].replace('%','')
-                                                if '&' in al[i][0]:
-                                                    al[i] = al[i].replace('&','')
-                                                if ';' in al[i]:
-                                                    al[i] = al[i].replace(';','')
-                                        except:
-                                            continue
-                                            
-                                            
-                                        try:
-                                            deg = "#" +al[0] + "   #" +al[1] + "   #" + al[2]
-                                        except:
-                                            continue
-                                        print deg
-                                        print Main
-                                        Main = (Main  +"</center>" + "<font size=5 color=#0080FF >" + deg +"</font><br>" +dip +"</font>" +"<br><br></font>")
+                                        Main = (Main  +"</center>" + "<font size=5 color=#0080FF >" + i.text+"</font><br>"+"</font>" +"<br><br></font>")
                                         deg = ""
-                                        print (Main)
+                                        #print (Main)
                                         
                                         #print "In"
                                         body = body +i.text
@@ -346,9 +336,13 @@ def PeopleSearch():
                                         
                                             sum = '%s' % (
                                             ' '.join([i[1] for i in selected_sents]))
-                                            if (sum) not in (summary):
+                                            if hg != 1:
+                                              if (sum) not in (summary):
+                                                if ("Born") in(sum):
+                                                    fgh = sum
                                                 if ("Born") in(sum):
                                                     summary = ("<font size =4"> + sum+"</font>" + summary)
+                                                    hg =1
                                                 summary = (summary + sum)
                                             print (summary)
                                             
@@ -363,7 +357,7 @@ def PeopleSearch():
                     continue
     
     
-    
+    #summary = fgh
     Ed = ""
     a = splitParagraphIntoSentences(Education)
     
@@ -592,3 +586,4 @@ def pageNotFound(error):
     nopage = ("<br><br><br><br><br><br>"+"<center><font size =6>Oops...your search timed out. Please refresh your page and try again.</font></center>")
     return (nopage)
 
+app.run(host='localhost', port=8080)
