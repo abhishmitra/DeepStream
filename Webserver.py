@@ -389,10 +389,9 @@ def PeopleSearch():
         
         searchTerm = ('%27'+raw+'%27')
         print "Hi"
-        try:
-           picture = imagery(searchTerm)
-        except:
-            pass
+     
+        picture = imagery(searchTerm)
+        
         print picture
     except:
         pass
