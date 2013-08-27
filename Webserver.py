@@ -392,7 +392,7 @@ def PeopleSearch():
         try:
            picture = imagery(searchTerm)
         except:
-            continue
+            pass
         print picture
     except:
         pass
