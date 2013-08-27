@@ -575,8 +575,7 @@ def ScienceSearch():
                                 
      
 
-     string = (Heading +"<font size = 6 color = #0080FF><u>"+"Summary:<br>"+"</u></font>" +"<font size=4>" +
-              summary +"</font><br><br>" +"<font size = 6 color = #0080FF><u>Main Content:</u></font><br><br>"
+    string = (Heading +"<font size = 6 color = #0080FF><u>"+"Summary:<br>"+"</u></font>" +"<font size=4>" + summary +"</font><br><br>" +"<font size = 6 color = #0080FF><u>Main Content:</u></font><br><br>"
               + Mains)
     
     return (string)
@@ -585,5 +584,3 @@ def ScienceSearch():
 def pageNotFound(error):
     nopage = ("<br><br><br><br><br><br>"+"<center><font size =6>Oops...your search timed out. Please refresh your page and try again.</font></center>")
     return (nopage)
-
-app.run(host='localhost', port=8080)
