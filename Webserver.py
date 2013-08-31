@@ -21,7 +21,6 @@ from math import log10
 # -*- coding: utf-8 *-*
 import nltk.data
 from nltk.corpus import wordnet as wn
-from nltk import pos_tag
 
 syno =[]
 hg = 0
