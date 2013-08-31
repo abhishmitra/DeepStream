@@ -61,10 +61,10 @@ def check_for_div_parent(mark):
         return False
     return check_for_div_parent(mark)
 
-def imagery(ima, **params):
+def imagery(imaas, **params):
     print "Yolo"
-    print ima
-    r = requests.get(URLI % {'q': ima}, auth=('', API_KEY))
+    print imaas
+    r = requests.get(URLI % {'q': imaas}, auth=('', API_KEY))
     g = r.json()['d']['results']
     print g[0]['Thumbnail']
     return g[0]['Thumbnail']['MediaUrl']
@@ -209,8 +209,8 @@ def PeopleSearch():
         
         searchTerm = ('%27'+raw+'%27')
         print "Hi"
-        #picture = imagery(searchTerm)
-        picture = "adf"
+        picture = imagery(searchTerm)
+        print picture
     except:
         pass
 
@@ -584,3 +584,5 @@ def ScienceSearch():
 def pageNotFound(error):
     nopage = ("<br><br><br><br><br><br>"+"<center><font size =6>Oops...your search timed out. Please refresh your page and try again.</font></center>")
     return (nopage)
+
+app.run(host='localhost',port=8080)
