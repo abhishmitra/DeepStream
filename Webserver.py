@@ -21,10 +21,17 @@ from math import log10
 # -*- coding: utf-8 *-*
 import nltk.data
 from nltk.corpus import wordnet as wn
-
+from nltk import pos_tag
+import nltk
+from nltk import sent_tokenize, word_tokenize
+from collections import Counter
+from math import log10
 syno =[]
 hg = 0
-
+sentence = '''Mugabe rose to prominence in the 1960s as the Secretary General of the Zimbabwe African National Union (ZANU) during the conflict against the white-minority government of Ian Smith. Mugabe was a political prisoner in Rhodesia for more than 10 years between 1964 and 1974.[2] Upon release Mugabe, along with Edgar Tekere, left Rhodesia in 1975 to re-join the fight during the Rhodesian Bush War from bases in Mozambique.
+At the end of the war in 1979, Mugabe emerged as a hero in the minds of many Africans.[3][4] He won the general elections of 1980, the second in which the majority of black Africans participated. (The electoral system in Rhodesia had allowed black participation based on qualified franchise). Mugabe became the first Prime Minister after calling for reconciliation between formerly warring parties, including white Rhodesians and rival political groups.
+The years following Zimbabwe's independence saw a split between the two key parties who had fought alongside each other during the 1970s against the white minority rulers of Rhodesia. An armed conflict between Mugabe's government and followers of Joshua Nkomo's ZAPU erupted. Following the deaths of thousands, with neither faction able to defeat the other, the parties reached a landmark agreement leading to the creation of a new party, ZANU PF, a coalition between the two former rivals.[5]
+In 1998, Mugabe's government supported the Southern African Development Community's intervention in the Second Congo War by sending Zimbabwean troops to assist the government of Laurent-Désiré Kabila. Some commentators called Zimbabwe's intervention a tactic to bolster its economy by controlling the Congo's natural resources.[6]'''
 app = Flask(__name__)
 profanity = ['fuck','asshole','sex','faggot','negro','nigger','boob','tit','sex','shit','breast','porn']
 
@@ -56,17 +63,16 @@ def check_for_div_parent(mark):
         return False
     return check_for_div_parent(mark)
 
-def imagery(imaas, **params):
+def imagery(imaa, **params):
     print "Yolo"
-    print imaas
-    r = requests.get(URLI % {'q': imaas}, auth=('', API_KEY))
+    print imaa
+    r = requests.get(URLI % {'q': imaa}, auth=('', API_KEY))
     g = r.json()['d']['results']
     print g[0]['Thumbnail']
     return g[0]['Thumbnail']['MediaUrl']
 
 def splitParagraphIntoSentences(paragraph):
     import re
-
     sentenceEnders = re.compile('[.!?][\s]{1,2}(?=[A-Z])')
     sentenceList = sentenceEnders.split(paragraph)
     return sentenceList
@@ -107,6 +113,7 @@ def Ti(enter):
 def hello():
     return ''' <a href= /about>About</a>
                 <center><br><br><img src="https://lh5.googleusercontent.com/-MISGJsdATlo/Ufo2xq2lGfI/AAAAAAAAAbk/3lG9hKOSN5A/w500-h229-no/PaceByte.png" width = 500px><br><br>
+                <font size =4 style = Trajan>The Research Engine</font>
                 <br><br><br>
 
                 
@@ -194,7 +201,7 @@ def PeopleSearch():
     
         
           
-        adjEdu = ['school','educa,','university','colleg','scholar','merit','young','teenag']
+        adjEdu = ['school','educa,','university','colleg','scholar','merit','young','teenag','years']
         ael = (len(adjEdu)-1)
         adjCareer = ['worked','discovered','wrote','develop','won','invent','practiced','study','research','preside','govern','act']
         acl = (len(adjCareer)-1)
@@ -205,7 +212,6 @@ def PeopleSearch():
         searchTerm = ('%27'+raw+'%27')
         print "Hi"
         picture = imagery(searchTerm)
-        print picture
     except:
         pass
 
@@ -222,7 +228,7 @@ def PeopleSearch():
     summary = ""
     cli =0
     
-    
+    summary = ""
 
     print QuerySplit[0]
     j = 0
@@ -256,15 +262,10 @@ def PeopleSearch():
                 except Exception,err:
                     pass
                 soup = BeautifulSoup(ourUrl)
-                
-                for div in soup.findAll('div'):
-                        div.replaceWith(Comment(unicode(div)))
                 for link in soup.findAll('a', href=True):
                         link.replaceWith(Comment(unicode(link)))
-                
                 dem = soup.findAll('p')
-                #print soup
-                print "yo"
+                print dem
                 tex = soup.title.string
                 Main = (Main + "<a href='" + url + "'>"+ "<font size = 4>" + tex +"</font>" +"</a><br><br>")
                 
@@ -272,10 +273,9 @@ def PeopleSearch():
                 URL = url
                 try:
                     for i in dem:
-                       #print i.text
+                       print i.text
                        if (i.text) not in Main:
                          for k in range (l ,QSL-1):
-                            if len(i.text)not in range(0,150):
                               if QuerySplit[k] in i.text:
                                 if("@") not in i.text:
                                     if ("http") not in i.text:
@@ -295,54 +295,15 @@ def PeopleSearch():
                                             summary = (i.text +summary)
                                        
                                         
-                                        Main = (Main  +"</center>" + "<font size=5 color=#0080FF >" + i.text+"</font><br>"+"</font>" +"<br><br></font>")
+                                        Main = (Main  +"</center>"  + i.text+"</font><br>"+"</font>" +"<br><br></font>")
                                         deg = ""
-                                        #print (Main)
                                         
-                                        #print "In"
-                                        body = body +i.text
-                                        text = body
                                         
-                                        try:
-                                            sentences = sent_tokenize(text)
-                                            tekan = len(sentences)*0.5
-                                            print len(sentences)
-                                            collections_tokens = word_tokenize(text)
-                                            collection_counter = Counter(collections_tokens)
-                                            sent_saliences = []
-                                            scored_sents = []
-                                            num_to_extract = 1
-
-                                            for index, sentence in enumerate(sentences):
-                                                sent_salience = 0
-                                                sent_tokens = word_tokenize(sentence)
-                                                sent_counter = Counter(sent_tokens)
-                                                for token in sent_tokens:
-                                                    tf = sent_counter[token]
-                                                    idf = log10(len(sentences) / sent_counter[token])
-                                                    tfidf = tf * idf
-                                                    sent_salience += tfidf
-                                                normalized_salience = sent_salience / len(sent_tokens)
-                                                sent_saliences.append(normalized_salience)
-                                                scored_sents.append((normalized_salience, sentence, index))
-
-                                            scored_sents.sort(key=lambda tup: tup[0], reverse=True)
-                                            selected_sents = sorted(scored_sents[:num_to_extract], key=lambda tup: tup[2])
-                                        
-                                            sum = '%s' % (
-                                            ' '.join([i[1] for i in selected_sents]))
-                                            if hg != 1:
-                                              if (sum) not in (summary):
-                                                if ("Born") in(sum):
-                                                    fgh = sum
-                                                if ("Born") in(sum):
-                                                    summary = ("<font size =4"> + sum+"</font>" + summary)
-                                                    hg =1
-                                                summary = (summary + sum)
-                                            print (summary)
+                                        #summary = (summary + "<font size=4>"+ asky + "<br></font>")
+                                        if ("Born") in (i.text):
+                                             born = i.text   
                                             
-                                        except Exception, err:
-                                            continue
+                                        
                                         
                                         print "Yes"
     
@@ -361,6 +322,7 @@ def PeopleSearch():
             if adjEdu[f] in (a[i]):
                 Ed = (Ed + a[i] +"<br>")
                 break
+    
     ca = ""
     a = splitParagraphIntoSentences(Career)
     for i in range (0,len(a)-1):
@@ -368,6 +330,10 @@ def PeopleSearch():
             if adjCareer[f] in (a[i]):
                 ca = (ca + a[i] +"<br>")  
                 break
+    try:
+        summary = (born + "<br>"+summary )
+    except:
+        summary = ""
     
     string = (Heading +"<font size = 6 color = #0080FF><u>"+"Summary:<br>"+"</u></font>" +"<font size=4>"+summary + "</font><br><br>"
               + "<font size = 6 color = #0080FF><u>Education:</u></font><br><font size=4>" +Ed + "</font><br><br>" + "<font size = 6 color = #0080FF><u>Career:</u></font><br><font size=4>"
@@ -512,19 +478,28 @@ def ScienceSearch():
             break
         print "Going"
         url = o[f]
-        print url
+        #print url
         if ('wikipedia') not in (url):              #Removes Wikipedia Entries
             if ('youtube') not in (url):
+                #try:
                 ourUrl = opener.open(url).read()
                 soup = BeautifulSoup(ourUrl)
-            
+                #print soup
+                print "yo"
+                for div in soup.findAll('div'):
+                        div.replaceWith(Comment(unicode(div)))
+                for link in soup.findAll('a', href=True):
+                        print "yop"
+                        link.replaceWith(Comment(unicode(link)))
+                print "hello"
                 dem = soup.findAll('p')
                 tex = soup.title.string
                 Mains = (Mains + "<a href='" + url + "'>"+ "<font size = 4>" + tex +"</font>" +"</a>" +"<br><br>")
                 backurl = " "
                 URL = url
                 for i in dem:
-                                    print (url)
+                                    print "?"
+                                    #print (url)
                                     Mains = (Mains  +"</center>" + "<font size = 4>" +i.text + "<br><br> "+"</font>")  
                                     
                                     body = (body +i.text)
@@ -580,3 +555,4 @@ def pageNotFound(error):
     nopage = ("<br><br><br><br><br><br>"+"<center><font size =6>Oops...your search timed out. Please refresh your page and try again.</font></center>")
     return (nopage)
 
+app.run(host='localhost',port=8080)
