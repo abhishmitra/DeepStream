@@ -44,6 +44,63 @@ def requester(que, **params):
     r = requests.get(URLA % {'q': que}, auth=('', API_KEY))
     return [res['Url'] for res in r.json()['d']['results']]
 
+def birth(sente):
+    birth_day = ''
+    birth_month = ''
+    birth_year = ''
+    count1 = 0
+    count2 = 0
+    count3 = 0
+    months = ['January','February','March','April','May','June','July','August','September','October','November','December']
+    birth_month =''
+    if ('born') in sente:
+       sents = word_tokenize(sente)
+       print "yoyoa"
+       for sets in sents:
+            for mon in months:
+                if (mon ==sets) and (count1==0):
+                    birth_month = mon
+                    count1 = 1
+                    for  se in sents:
+                        if se.isdigit() is True:                        
+                            if (len(se) is 2) and (count2==0):
+                               birth_day = se
+                               count2 = 1
+
+            if sets.isdigit() is True:
+                if (len(sets) is 4) and (count3==0):
+                    birth_year= sets
+                    count3 = 1
+            
+    borf = birth_day + " " + birth_month + ' ' + birth_year
+    return borf
+
+
+def asky(te):
+    sentences = sent_tokenize(te)
+    collections_tokens = word_tokenize(te)
+    collection_counter = Counter(collections_tokens)
+    sent_saliences = []
+    scored_sents = []
+    num_to_extract = 1
+
+    for index, sentence in enumerate(sentences):
+        sent_salience = 0
+        sent_tokens = word_tokenize(sentence)
+        sent_counter = Counter(sent_tokens)
+        for token in sent_tokens:
+            tf = sent_counter[token]
+            idf = log10(len(sentences) / sent_counter[token])
+            tfidf = tf * idf
+            sent_salience += tfidf
+        normalized_salience = sent_salience / len(sent_tokens)
+        sent_saliences.append(normalized_salience)
+        scored_sents.append((normalized_salience, sentence, index))
+
+    scored_sents.sort(key=lambda tup: tup[0], reverse=True)
+    selected_sents = sorted(scored_sents[:num_to_extract], key=lambda tup: tup[2])
+    return '%s' % (' '.join([i[1] for i in selected_sents]))
+
 def check_for_div_parent(mark):
     mark = mark.parent
     if 'div' == mark.name:
@@ -203,7 +260,7 @@ def PeopleSearch():
           
         adjEdu = ['school','educa,','university','colleg','scholar','merit','young','teenag','years']
         ael = (len(adjEdu)-1)
-        adjCareer = ['worked','discovered','wrote','develop','won','invent','practiced','study','research','preside','govern','act']
+        adjCareer = ['worked','discovered','wrote','develop','business','money' ,'sell','won','invent','practiced','study','research','preside','govern','act']
         acl = (len(adjCareer)-1)
         query = name
         raw = query
@@ -227,7 +284,7 @@ def PeopleSearch():
     string = ("")
     summary = ""
     cli =0
-    
+    born =""
     summary = ""
 
     print QuerySplit[0]
@@ -239,7 +296,7 @@ def PeopleSearch():
     jet = " "
     
     #First Search
-    quer =('"' +name+ '"')
+    quer =('"' +name+ ' biography"')
     print (quer)
     o = requester(quer)
     #print o
@@ -265,7 +322,7 @@ def PeopleSearch():
                 for link in soup.findAll('a', href=True):
                         link.replaceWith(Comment(unicode(link)))
                 dem = soup.findAll('p')
-                print dem
+                #print dem
                 tex = soup.title.string
                 Main = (Main + "<a href='" + url + "'>"+ "<font size = 4>" + tex +"</font>" +"</a><br><br>")
                 
@@ -273,7 +330,7 @@ def PeopleSearch():
                 URL = url
                 try:
                     for i in dem:
-                       print i.text
+                       #print i.text
                        if (i.text) not in Main:
                          for k in range (l ,QSL-1):
                               if QuerySplit[k] in i.text:
@@ -291,28 +348,29 @@ def PeopleSearch():
                                                     Career = (Career + i.text)
                                                     continue
                                                     
-                                        if ("born") in (i.text):
-                                            summary = (i.text +summary)
+                                        #if ("born") in (i.text):
+                                        #    summary = (i.text +summary)
                                        
                                         
                                         Main = (Main  +"</center>"  + i.text+"</font><br>"+"</font>" +"<br><br></font>")
                                         deg = ""
                                         
-                                        
-                                        #summary = (summary + "<font size=4>"+ asky + "<br></font>")
-                                        if ("Born") in (i.text):
-                                             born = i.text   
+                                        fgy = asky(i.text)
+                                        print fgy
+                                        summary = (summary + "<font size=4>"+ fgy + "<br></font>")
+                                        #if ("Born") in (i.text):
+                                        #     born = i.text   
                                             
                                         
                                         
-                                        print "Yes"
+                                        #print "Yes"
     
                     continue
                 
                 except Exception,err:
                     continue
     
-    
+    print "yayu"
     #summary = fgh
     Ed = ""
     a = splitParagraphIntoSentences(Education)
@@ -322,7 +380,7 @@ def PeopleSearch():
             if adjEdu[f] in (a[i]):
                 Ed = (Ed + a[i] +"<br>")
                 break
-    
+    print "kaku"
     ca = ""
     a = splitParagraphIntoSentences(Career)
     for i in range (0,len(a)-1):
@@ -330,15 +388,20 @@ def PeopleSearch():
             if adjCareer[f] in (a[i]):
                 ca = (ca + a[i] +"<br>")  
                 break
-    try:
-        summary = (born + "<br>"+summary )
-    except:
-        summary = ""
+    #if len(born) >1:
+    #summary = (born + "<br>" +summary )
     
-    string = (Heading +"<font size = 6 color = #0080FF><u>"+"Summary:<br>"+"</u></font>" +"<font size=4>"+summary + "</font><br><br>"
+    bory = birth(Main)
+    string = (Heading +"<center><font size =4>" + bory +"</center></font><font size = 6 color = #0080FF><u>"+"Summary:<br>"+"</u></font>" +"<font size=4>"+summary + "</font><br><br>"
               + "<font size = 6 color = #0080FF><u>Education:</u></font><br><font size=4>" +Ed + "</font><br><br>" + "<font size = 6 color = #0080FF><u>Career:</u></font><br><font size=4>"
               + ca + "</font><br><br>" + "<font size = 6 color = #0080FF><u>Main Content:</u></font><br><br>"+ Main + "<br><br>" + End)
-    
+    print
+    print
+    print
+    print
+    print
+    print
+    print Main
     return (string)
 
 @app.route('/science', methods=['POST'])
@@ -478,7 +541,6 @@ def ScienceSearch():
             break
         print "Going"
         url = o[f]
-        #print url
         if ('wikipedia') not in (url):              #Removes Wikipedia Entries
             if ('youtube') not in (url):
                 #try:
@@ -489,7 +551,7 @@ def ScienceSearch():
                 for div in soup.findAll('div'):
                         div.replaceWith(Comment(unicode(div)))
                 for link in soup.findAll('a', href=True):
-                        print "yop"
+
                         link.replaceWith(Comment(unicode(link)))
                 print "hello"
                 dem = soup.findAll('p')
@@ -542,9 +604,8 @@ def ScienceSearch():
                                     except Exception,err:
                                         pass
     
-                                
-     
-
+    
+    
     string = (Heading +"<font size = 6 color = #0080FF><u>"+"Summary:<br>"+"</u></font>" +"<font size=4>" + summary +"</font><br><br>" +"<font size = 6 color = #0080FF><u>Main Content:</u></font><br><br>"
               + Mains)
     
@@ -554,3 +615,6 @@ def ScienceSearch():
 def pageNotFound(error):
     nopage = ("<br><br><br><br><br><br>"+"<center><font size =6>Oops...your search timed out. Please refresh your page and try again.</font></center>")
     return (nopage)
+
+
+app.run(host='localhost',port=8080)
