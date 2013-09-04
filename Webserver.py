@@ -256,7 +256,7 @@ def PeopleSearch():
         opener = urllib2.build_opener()
         opener.addheaders = [('User-agent', 'Mozilla/5.0')]
     
-        
+        print "tioj"
           
         adjEdu = ['school','educa,','university','colleg','scholar','merit','young','teenag','years']
         ael = (len(adjEdu)-1)
@@ -348,8 +348,11 @@ def PeopleSearch():
                                                     Career = (Career + i.text)
                                                     continue
                                                     
-                                        #if ("born") in (i.text):
-                                        #    summary = (i.text +summary)
+                                        if ("born") in (i.text):
+                                            uiy = sent_tokenize(i.text)
+                                            for ut in uiy:
+                                                if ('born') in ut:
+                                                    summary = ut+ "<br>"+summary
                                        
                                         
                                         Main = (Main  +"</center>"  + i.text+"</font><br>"+"</font>" +"<br><br></font>")
@@ -358,12 +361,6 @@ def PeopleSearch():
                                         fgy = asky(i.text)
                                         print fgy
                                         summary = (summary + "<font size=4>"+ fgy + "<br></font>")
-                                        #if ("Born") in (i.text):
-                                        #     born = i.text   
-                                            
-                                        
-                                        
-                                        #print "Yes"
     
                     continue
                 
@@ -615,4 +612,3 @@ def ScienceSearch():
 def pageNotFound(error):
     nopage = ("<br><br><br><br><br><br>"+"<center><font size =6>Oops...your search timed out. Please refresh your page and try again.</font></center>")
     return (nopage)
-
