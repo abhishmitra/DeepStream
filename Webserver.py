@@ -544,9 +544,7 @@ def ScienceSearch():
                 ourUrl = opener.open(url).read()
                 soup = BeautifulSoup(ourUrl)
                 #print soup
-                print "yo"
-                for div in soup.findAll('div'):
-                        div.replaceWith(Comment(unicode(div)))
+                #print "yo"
                 for link in soup.findAll('a', href=True):
 
                         link.replaceWith(Comment(unicode(link)))
