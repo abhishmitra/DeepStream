@@ -77,6 +77,7 @@ def birth(sente):
 
 
 def asky(te):
+    print "asdasd"
     sentences = sent_tokenize(te)
     collections_tokens = word_tokenize(te)
     collection_counter = Counter(collections_tokens)
@@ -358,7 +359,8 @@ def PeopleSearch():
                                         Main = (Main  +"</center>"  + i.text+"</font><br>"+"</font>" +"<br><br></font>")
                                         deg = ""
                                         
-                                        fgy = asky(i.text)
+                                        #fgy = asky(i.text)
+                                        fgy = ""
                                         print "we done here"
                                         summary = (summary + "<font size=4>"+ fgy + "<br></font>")
     
