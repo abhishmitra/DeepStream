@@ -333,6 +333,8 @@ def PeopleSearch():
                     for i in dem:
                        #print i.text
                        if (i.text) not in Main:
+                         u = sent_tokenize(i.text)
+                         print u
                          for k in range (l ,QSL-1):
                               if QuerySplit[k] in i.text:
                                 if("@") not in i.text:
