@@ -370,7 +370,7 @@ def PeopleSearch():
     print "yayu"
     #summary = fgh
     Ed = ""
-    a = splitParagraphIntoSentences(Education)]
+    a = splitParagraphIntoSentences(Education)
     print "sda"
     print Career
     print "sadas" 
