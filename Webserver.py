@@ -83,7 +83,7 @@ def asky(te):
     sent_saliences = []
     scored_sents = []
     num_to_extract = 1
-
+    print "fdg"
     for index, sentence in enumerate(sentences):
         sent_salience = 0
         sent_tokens = word_tokenize(sentence)
@@ -359,7 +359,7 @@ def PeopleSearch():
                                         deg = ""
                                         
                                         fgy = asky(i.text)
-                                        print fgy
+                                        print "we done here"
                                         summary = (summary + "<font size=4>"+ fgy + "<br></font>")
     
                     continue
@@ -612,3 +612,5 @@ def ScienceSearch():
 def pageNotFound(error):
     nopage = ("<br><br><br><br><br><br>"+"<center><font size =6>Oops...your search timed out. Please refresh your page and try again.</font></center>")
     return (nopage)
+
+app.run(host='localhost',port=8080)
