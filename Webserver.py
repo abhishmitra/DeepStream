@@ -370,14 +370,19 @@ def PeopleSearch():
     print "yayu"
     #summary = fgh
     Ed = ""
-    a = splitParagraphIntoSentences(Education)
-    
+    a = splitParagraphIntoSentences(Education)]
+    print "sda"
+    print Career
+    print "sadas" 
+    print "sda"
+    print Education
+    print "sadas" 
     for i in range (0,len(a)-1):
         for f in range (0,ael):
             if adjEdu[f] in (a[i]):
                 Ed = (Ed + a[i] +"<br>")
                 break
-    print "kaku"
+    
     ca = ""
     a = splitParagraphIntoSentences(Career)
     for i in range (0,len(a)-1):
@@ -392,13 +397,7 @@ def PeopleSearch():
     string = (Heading +"<center><font size =4>" + bory +"</center></font><font size = 6 color = #0080FF><u>"+"Summary:<br>"+"</u></font>" +"<font size=4>"+summary + "</font><br><br>"
               + "<font size = 6 color = #0080FF><u>Education:</u></font><br><font size=4>" +Ed + "</font><br><br>" + "<font size = 6 color = #0080FF><u>Career:</u></font><br><font size=4>"
               + ca + "</font><br><br>" + "<font size = 6 color = #0080FF><u>Main Content:</u></font><br><br>"+ Main + "<br><br>" + End)
-    print
-    print
-    print
-    print
-    print
-    print
-    print Main
+    
     return (string)
 
 @app.route('/science', methods=['POST'])
