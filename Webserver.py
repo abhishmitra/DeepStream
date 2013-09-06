@@ -23,7 +23,7 @@ import nltk.data
 from nltk.corpus import wordnet as wn
 from nltk import pos_tag
 import nltk
-from nltk import sent_tokenize, word_tokenize
+from nltk import word_tokenize
 from collections import Counter
 from math import log10
 syno =[]
@@ -39,6 +39,17 @@ profanity = ['fuck','asshole','sex','faggot','negro','nigger','boob','tit','sex'
 URLA = "https://mykey:mykey@api.datamarket.azure.com/Bing/Search/Web?$format=json&Query=%(q)s"
 API_KEY = 'WdxgHLzMYWAsYipg/tv/RpK1mFk5YhuFeLQZxH2I1Uw'
 URLI = "https://mykey:mykey@api.datamarket.azure.com/Bing/Search/Image?$format=json&Query=%(q)s"
+
+def sent(ghjui):
+    case =[]
+    text = ''.join(ghjui)
+    sentences = re.split(r' *[\.\?!][\'"\)\]]* *', text)
+    print sentences
+    for i in sentences:
+        case.append(i)
+    print case
+    return case
+
 def requester(que, **params):
     que = ('%27'+que+ '%27')
     r = requests.get(URLA % {'q': que}, auth=('', API_KEY))
@@ -77,7 +88,6 @@ def birth(sente):
 
 
 def asky(te):
-    print "asdasd"
     sentences = sent_tokenize(te)
     collections_tokens = word_tokenize(te)
     collection_counter = Counter(collections_tokens)
@@ -110,16 +120,6 @@ def check_for_div_parent(mark):
         return False
     return check_for_div_parent(mark)
 
-
-def check_for_div_parent(mark):
-    mark = mark.parent
-    if 'div' == mark.name:
-        print "hello"
-        return True
-    if 'html' == mark.name:
-        print "yop"
-        return False
-    return check_for_div_parent(mark)
 
 def imagery(imaa, **params):
     print "Yolo"
@@ -270,6 +270,8 @@ def PeopleSearch():
         searchTerm = ('%27'+raw+'%27')
         print "Hi"
         picture = imagery(searchTerm)
+        
+        print "yu"
     except:
         pass
 
@@ -333,11 +335,11 @@ def PeopleSearch():
                     for i in dem:
                        #print i.text
                        if (i.text) not in Main:
-                         print u
                          for k in range (l ,QSL-1):
                               if QuerySplit[k] in i.text:
                                 if("@") not in i.text:
                                     if ("http") not in i.text:
+                                        print "Yop"
                                         for a in range (0,ael):
                                             if adjEdu[a] in (i.text):
                                                 if (i.text) not in (Education):
@@ -351,19 +353,15 @@ def PeopleSearch():
                                                     continue
                                                     
                                         if ("born") in (i.text):
-                                            uiy = sent_tokenize(i.text)
-                                            for ut in uiy:
-                                                if ('born') in ut:
-                                                    summary = ut+ "<br>"+summary
+                                            summary = i.text
                                        
                                         
                                         Main = (Main  +"</center>"  + i.text+"</font><br>"+"</font>" +"<br><br></font>")
                                         deg = ""
                                         
                                         #fgy = asky(i.text)
-                                        fgy = ""
                                         print "we done here"
-                                        summary = (summary + "<font size=4>"+ fgy + "<br></font>")
+                                        summary = (summary + "<font size=4>"+ "<br></font>")
     
                     continue
                 
@@ -374,18 +372,13 @@ def PeopleSearch():
     #summary = fgh
     Ed = ""
     a = splitParagraphIntoSentences(Education)
-    print "sda"
-    print Career
-    print "sadas" 
-    print "sda"
-    print Education
-    print "sadas" 
+    
     for i in range (0,len(a)-1):
         for f in range (0,ael):
             if adjEdu[f] in (a[i]):
                 Ed = (Ed + a[i] +"<br>")
                 break
-    
+    print "kaku"
     ca = ""
     a = splitParagraphIntoSentences(Career)
     for i in range (0,len(a)-1):
@@ -393,14 +386,11 @@ def PeopleSearch():
             if adjCareer[f] in (a[i]):
                 ca = (ca + a[i] +"<br>")  
                 break
-    #if len(born) >1:
-    #summary = (born + "<br>" +summary )
     
     bory = birth(Main)
     string = (Heading +"<center><font size =4>" + bory +"</center></font><font size = 6 color = #0080FF><u>"+"Summary:<br>"+"</u></font>" +"<font size=4>"+summary + "</font><br><br>"
               + "<font size = 6 color = #0080FF><u>Education:</u></font><br><font size=4>" +Ed + "</font><br><br>" + "<font size = 6 color = #0080FF><u>Career:</u></font><br><font size=4>"
               + ca + "</font><br><br>" + "<font size = 6 color = #0080FF><u>Main Content:</u></font><br><br>"+ Main + "<br><br>" + End)
-    
     return (string)
 
 @app.route('/science', methods=['POST'])
@@ -546,7 +536,9 @@ def ScienceSearch():
                 ourUrl = opener.open(url).read()
                 soup = BeautifulSoup(ourUrl)
                 #print soup
-                #print "yo"
+                print "yo"
+                for div in soup.findAll('div'):
+                        div.replaceWith(Comment(unicode(div)))
                 for link in soup.findAll('a', href=True):
 
                         link.replaceWith(Comment(unicode(link)))
@@ -612,3 +604,5 @@ def ScienceSearch():
 def pageNotFound(error):
     nopage = ("<br><br><br><br><br><br>"+"<center><font size =6>Oops...your search timed out. Please refresh your page and try again.</font></center>")
     return (nopage)
+
+app.run(host='localhost',port=8080)
