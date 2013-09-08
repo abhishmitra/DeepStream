@@ -26,6 +26,7 @@ import nltk
 from nltk import word_tokenize
 from collections import Counter
 from math import log10
+import re
 syno =[]
 hg = 0
 sentence = '''Mugabe rose to prominence in the 1960s as the Secretary General of the Zimbabwe African National Union (ZANU) during the conflict against the white-minority government of Ian Smith. Mugabe was a political prisoner in Rhodesia for more than 10 years between 1964 and 1974.[2] Upon release Mugabe, along with Edgar Tekere, left Rhodesia in 1975 to re-join the fight during the Rhodesian Bush War from bases in Mozambique.
@@ -40,14 +41,20 @@ URLA = "https://mykey:mykey@api.datamarket.azure.com/Bing/Search/Web?$format=jso
 API_KEY = 'WdxgHLzMYWAsYipg/tv/RpK1mFk5YhuFeLQZxH2I1Uw'
 URLI = "https://mykey:mykey@api.datamarket.azure.com/Bing/Search/Image?$format=json&Query=%(q)s"
 
+program = ['programmer','programming','coding','coder','Java','C++','Python']
+actor = ['film','actor','movie', 'TV show','acting']
+science = ['physic','chemist','science','discovered','invent']
+business = ['entrpreneu','company','investor','startup']
+politician = ['politic']
+
 def sent(ghjui):
     case =[]
-    text = ''.join(ghjui)
-    sentences = re.split(r' *[\.\?!][\'"\)\]]* *', text)
-    print sentences
+    tey = ''.join(ghjui)
+    sentences = re.split(r' *[\.\?!][\'"\)\]]* *', tey)
+    #print sentences
     for i in sentences:
         case.append(i)
-    print case
+    #print case
     return case
 
 def requester(que, **params):
@@ -276,6 +283,7 @@ def PeopleSearch():
         pass
 
     #Imports Text
+    bornc =0
     Education =""
     End = ("<font size = 1><center>The information provided on this webpage does not belong to Pace Byte and has been re-quoted from other website whose urls have been embedded in the headline of the articles</center></font>")
     Career =""
@@ -299,6 +307,13 @@ def PeopleSearch():
     jet = " "
     
     #First Search
+    cc = 0
+    pc = 0
+    sc = 0
+    pp =0
+    ss =0
+    prof = "Profession: "
+    borc = 0
     quer =('"' +name+ ' biography"')
     print (quer)
     o = requester(quer)
@@ -325,7 +340,6 @@ def PeopleSearch():
                 for link in soup.findAll('a', href=True):
                         link.replaceWith(Comment(unicode(link)))
                 dem = soup.findAll('p')
-                #print dem
                 tex = soup.title.string
                 Main = (Main + "<a href='" + url + "'>"+ "<font size = 4>" + tex +"</font>" +"</a><br><br>")
                 
@@ -339,7 +353,7 @@ def PeopleSearch():
                               if QuerySplit[k] in i.text:
                                 if("@") not in i.text:
                                     if ("http") not in i.text:
-                                        print "Yop"
+                                                                              
                                         for a in range (0,ael):
                                             if adjEdu[a] in (i.text):
                                                 if (i.text) not in (Education):
@@ -351,17 +365,54 @@ def PeopleSearch():
                                                 if (i.text) not in (Career):
                                                     Career = (Career + i.text)
                                                     continue
-                                                    
+                                               
                                         if ("born") in (i.text):
-                                            summary = i.text
+                                            a = sent(i.text)
+                                            print a
+                                            for i in range(0,len(a)-1):
+                                                if (("born") in a[i]) and (bornc == 0):
+                                                    
+                                                    summary = a[i] + a[i+1]+"<br>" + summary
+                                                    print "xvgzc"
+                                                    bornc = 1
+                                            
+                                            
                                        
                                         
                                         Main = (Main  +"</center>"  + i.text+"</font><br>"+"</font>" +"<br><br></font>")
                                         deg = ""
                                         
-                                        #fgy = asky(i.text)
                                         print "we done here"
-                                        summary = (summary + "<font size=4>"+ "<br></font>")
+
+                                        for c in program:
+                                            if (c in i.text) and (cc==0):
+                                                print "dfg"
+                                                prof = prof +'Programmer, '
+                                                cc=1
+                                                
+                                        for y in science:
+                                            if (y in i.text) and (sc ==0):
+                                                print "asdf"
+                                                prof = prof + 'Scientist, '
+                                                sc =1
+                                                
+                                        for t in actor:
+                                            print "asfd"
+                                            if (t in i.text) and (pc==0):
+                                                prof = prof +'Actor, '
+                                                pc =1
+                                        for r in business:
+                                            if (r in i.text) and (ss ==0):
+                                              
+                                                prof = prof + 'Business Man, '
+                                                ss =1
+                                                
+                                        for w in politician:
+                                            print "asfd"
+                                            if (w in i.text) and (pp==0):
+                                                prof = prof +'Politician, '
+                                                pp =1
+
     
                     continue
                 
@@ -386,6 +437,8 @@ def PeopleSearch():
             if adjCareer[f] in (a[i]):
                 ca = (ca + a[i] +"<br>")  
                 break
+
+    summary = summary +'<br>' + prof
     
     bory = birth(Main)
     string = (Heading +"<center><font size =4>" + bory +"</center></font><font size = 6 color = #0080FF><u>"+"Summary:<br>"+"</u></font>" +"<font size=4>"+summary + "</font><br><br>"
@@ -604,4 +657,3 @@ def ScienceSearch():
 def pageNotFound(error):
     nopage = ("<br><br><br><br><br><br>"+"<center><font size =6>Oops...your search timed out. Please refresh your page and try again.</font></center>")
     return (nopage)
-
