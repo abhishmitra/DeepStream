@@ -194,13 +194,8 @@ def hello():
                     <input type="submit" value="People Search"/>
                     <br>
                 </form>
-
-                <form method="POST" action="/science">
-                
-
-                    <input name="search" type="text" width=1000px> 
-                    <br>
-                     <input type="submit" value="Science Search"/>
+                        <br>
+                        <br><br>
                      <br>
                      <br>
                      <br>
@@ -351,10 +346,11 @@ def PeopleSearch():
                 
                 try:
                     for i in dem:
-                        
+
                        #print i.text
                        if (i.text) not in Main:
                          for k in range (l ,QSL-1):
+                             
                               if QuerySplit[k] in i.text:
                                 if("@") not in i.text:
                                     if ("http") not in i.text:
@@ -456,214 +452,7 @@ def PeopleSearch():
               + ca + "</font><br><br>" + "<font size = 6 color = #0080FF><u>Main Content:</u></font><br><br>"+ Main + "<br><br>" + End)
     return (string)
 
-@app.route('/science', methods=['POST'])
-def ScienceSearch():
-    body = ""
-    summary =""
-    name = request.form.get('search')
-    name = name.title()
-    name_s = name.split()
-    al = len(name_s)
-    if (al <2):
-        return "You need to enter atleast two words"
-    for x in range (0,7):
-            if profanity[x] in (name):
-                return ("We will not process that")
-    opener = urllib2.build_opener()
-    opener.addheaders = [('User-agent', 'Mozilla/5.0')]
-    
-    Mains = ""
-    query = name
-    raw = query
-            
-    # Define search term
-    searchTerm = (raw)
 
-    # Replace spaces ' ' in search term for '%20' in order to comply with request
-    searchTerm = searchTerm.replace(' ','%20')
-
-
-    # Start FancyURLopener with defined version 
-    class MyOpener(FancyURLopener): 
-        version = 'Mozilla/5.0 (Windows; U; Windows NT 5.1; it; rv:1.8.1.11) Gecko/20071127 Firefox/2.0.0.11'
-    myopener = MyOpener()
-
-    i = 0
-    # Set count to 0
-    count= 0
-
-    for i in range(0,1):
-        # Notice that the start changes for each iteration in order to request a new set of images for each loop
-        url = ('https://ajax.googleapis.com/ajax/services/search/images?' + 'v=1.0&q='+searchTerm+'&start='+str(i*4)+'&userip=MyIP')
-        reques1 = urllib2.Request(url, None, {'Referer': 'testing'})
-        response = urllib2.urlopen(reques1)
-
-        # Get results using JSON
-        results = simplejson.load(response)
-        data = results['responseData']
-        dataInfo = data['results']
-
-        # Iterate for each result and get unescaped url
-        for myUrl in dataInfo:
-            count = count + 1
-            d = count
-            print myUrl['unescapedUrl']
-            picture = myUrl['unescapedUrl']
-            for i in range (0,2):
-                if i is 2:
-                    a = myopener.retrieve(myUrl['unescapedUrl'],str(count)+'.jpg')
-        myopener.retrieve(myUrl['unescapedUrl'],str(count)+'.jpg')
-
-#New Scan for formula
-
-     # Define search term
-    searchTerm = (raw + 'equation')
-
-    # Replace spaces ' ' in search term for '%20' in order to comply with request
-    searchTerm = searchTerm.replace(' ','%20')
-
-
-    # Start FancyURLopener with defined version 
-    class MyOpener(FancyURLopener): 
-        version = 'Mozilla/5.0 (Windows; U; Windows NT 5.1; it; rv:1.8.1.11) Gecko/20071127 Firefox/2.0.0.11'
-    myopener = MyOpener()
-
-    i = 0
-    # Set count to 0
-    count= 0
-
-    for i in range(0,1):
-        # Notice that the start changes for each iteration in order to request a new set of images for each loop
-        url = ('https://ajax.googleapis.com/ajax/services/search/images?' + 'v=1.0&q='+searchTerm+'&start='+str(i*4)+'&userip=MyIP')
-        reques1 = urllib2.Request(url, None, {'Referer': 'testing'})
-        response = urllib2.urlopen(reques1)
-
-        # Get results using JSON
-        results = simplejson.load(response)
-        data = results['responseData']
-        dataInfo = data['results']
-
-        # Iterate for each result and get unescaped url
-        for myUrl in dataInfo:
-            count = count + 1
-            d = count
-            print myUrl['unescapedUrl']
-            picfor = myUrl['unescapedUrl']
-            for i in range (0,2):
-                if i is 2:
-                    a = myopener.retrieve(myUrl['unescapedUrl'],str(count)+'.jpg')
-        myopener.retrieve(myUrl['unescapedUrl'],str(count)+'.jpg')
-
-
-    #scanning done
-
-    adjApp = ['applicat','used in']
-    aal = (len(adjApp)-1)
-    
-    Application = ""
-    
-    #Imports Text
-    print picture
-    QuerySplit = query.split()
-    print QuerySplit
-    QSL = len(QuerySplit)
-    print str(query)
-    string = ""
-    print QuerySplit[0]
-    j = 0
-    l = 0
-    k = 0
-    v = 0
-    Abst = "Nothing Here"
-    jet = " "
-    
-    #First Search
-    quer =('"' +name+ '"')
-    print (quer)
-    o = requester(quer)
-    #print o
-    i = 0
-    flag = 0
-    Title = raw
-    Heading = ("<img src='https://lh5.googleusercontent.com/-cjODD9V7AXI/UerIKznIVNI/AAAAAAAAAaU/dSi288GNIr4/w500-h229-no/PaceByte.png' width = 200px> + <center><font size = 14> " + raw + "</font><br><br><img src='" + picture + "' width =400px></center><br><br>")
-    body = ""
-    Main = ""
-    for f in range(0,len(o)-1):
-        if (f>10):
-            break
-        print "Going"
-        print "sdfga"
-        url = o[f]
-        if ('wikipedia') not in (url):              #Removes Wikipedia Entries
-            if ('youtube') not in (url):
-                try:
-                    ourUrl = opener.open(url).read()
-                    soup = BeautifulSoup(ourUrl)
-                except:
-                    continue
-                print "yo"
-                for div in soup.findAll('div'):
-                        div.replaceWith(Comment(unicode(div)))
-                for link in soup.findAll('a', href=True):
-
-                        link.replaceWith(Comment(unicode(link)))
-                print "hello"
-                dem = soup.findAll('p')
-                tex = soup.title.string
-                Mains = (Mains + "<a href='" + url + "'>"+ "<font size = 4>" + tex +"</font>" +"</a>" +"<br><br>")
-                backurl = " "
-                URL = url
-                for i in dem:
-                                    print "?"
-                                    #print (url)
-                                    Mains = (Mains  +"</center>" + "<font size = 4>" +i.text + "<br><br> "+"</font>")  
-                                    
-                                    body = (body +i.text)
-                                    text = (body)
-                                        
-                                    try:
-                                            sentences = sent_tokenize(text)
-                                            tekan = len(sentences)*0.5
-                                            
-                                            collections_tokens = word_tokenize(text)
-                                            collection_counter = Counter(collections_tokens)
-                                            sent_saliences = []
-                                            scored_sents = []
-                                            num_to_extract = 1
-                                            
-                                            for index, sentence in enumerate(sentences):
-                                                sent_salience = 0
-                                                sent_tokens = word_tokenize(sentence)
-                                                sent_counter = Counter(sent_tokens)
-                                                for token in sent_tokens:
-                                                    tf = sent_counter[token]
-                                                    idf = log10(len(sentences) / sent_counter[token])
-                                                    tfidf = tf * idf
-                                                    sent_salience += tfidf
-                                                normalized_salience = sent_salience / len(sent_tokens)
-                                                sent_saliences.append(normalized_salience)
-                                                scored_sents.append((normalized_salience, sentence, index))
-
-                                            scored_sents.sort(key=lambda tup: tup[0], reverse=True)
-                                            selected_sents = sorted(scored_sents[:num_to_extract], key=lambda tup: tup[2])
-                                        
-                                            sum = '%s' % (' '.join([i[1] for i in selected_sents]))
-                                            if (sum) not in summary:
-                                                summary = ("<font size=4>"+summary +"<br>"+ sum + "</font>")
-
-                                            
-
-                                                        
-                   
-                                    except Exception,err:
-                                        pass
-    
-    
-    
-    string = (Heading +"<font size = 6 color = #0080FF><u>"+"Summary:<br>"+"</u></font>" +"<font size=4>" + summary +"</font><br><br>" +"<font size = 6 color = #0080FF><u>Main Content:</u></font><br><br>"
-              + Mains)
-    
-    return (string)
 
 @app.errorhandler(500)
 def pageNotFound(error):
@@ -671,3 +460,4 @@ def pageNotFound(error):
     return (nopage)
 
 
+app.run(host='localhost', port =8080)
