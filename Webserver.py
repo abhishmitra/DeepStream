@@ -335,27 +335,30 @@ def PeopleSearch():
                 try:
                     ourUrl = opener.open(url).read()
                 except Exception,err:
-                    pass
+                    continue
                 soup = BeautifulSoup(ourUrl)
-                
                 for link in soup.findAll('a', href=True):
                         link.replaceWith(Comment(unicode(link)))
-                
-                dem = soup.findAll('p')
-                tex = soup.title.string
+                try:
+                    dem = soup.findAll('p')
+                    tex = soup.title.string
+                except:
+                    continue
                 Main = (Main + "<a href='" + url + "'>"+ "<font size = 4>" + tex +"</font>" +"</a><br><br>")
                 
                 backurl = " "
                 URL = url
+                
                 try:
                     for i in dem:
+                        
                        #print i.text
                        if (i.text) not in Main:
                          for k in range (l ,QSL-1):
                               if QuerySplit[k] in i.text:
                                 if("@") not in i.text:
                                     if ("http") not in i.text:
-                                                                            
+                                                                          
                                         for a in range (0,ael):
                                             if adjEdu[a] in (i.text):
                                                 if (i.text) not in (Education):
@@ -578,7 +581,7 @@ def ScienceSearch():
     quer =('"' +name+ '"')
     print (quer)
     o = requester(quer)
-    print o
+    #print o
     i = 0
     flag = 0
     Title = raw
@@ -593,10 +596,11 @@ def ScienceSearch():
         url = o[f]
         if ('wikipedia') not in (url):              #Removes Wikipedia Entries
             if ('youtube') not in (url):
-                #try:
-                ourUrl = opener.open(url).read()
-                soup = BeautifulSoup(ourUrl)
-                #print soup
+                try:
+                    ourUrl = opener.open(url).read()
+                    soup = BeautifulSoup(ourUrl)
+                except:
+                    continue
                 print "yo"
                 for div in soup.findAll('div'):
                         div.replaceWith(Comment(unicode(div)))
@@ -665,4 +669,5 @@ def ScienceSearch():
 def pageNotFound(error):
     nopage = ("<br><br><br><br><br><br>"+"<center><font size =6>Oops...your search timed out. Please refresh your page and try again.</font></center>")
     return (nopage)
+
 
