@@ -337,8 +337,10 @@ def PeopleSearch():
                 except Exception,err:
                     pass
                 soup = BeautifulSoup(ourUrl)
+                
                 for link in soup.findAll('a', href=True):
                         link.replaceWith(Comment(unicode(link)))
+                
                 dem = soup.findAll('p')
                 tex = soup.title.string
                 Main = (Main + "<a href='" + url + "'>"+ "<font size = 4>" + tex +"</font>" +"</a><br><br>")
@@ -353,28 +355,33 @@ def PeopleSearch():
                               if QuerySplit[k] in i.text:
                                 if("@") not in i.text:
                                     if ("http") not in i.text:
-                                                                              
+                                                                            
                                         for a in range (0,ael):
                                             if adjEdu[a] in (i.text):
                                                 if (i.text) not in (Education):
                                                     Education = (Education + i.text )
                                                     continue
+                                        print "sdfg"
                                                 
                                         for a in range (0,acl):
                                             if adjCareer[a] in (i.text):
                                                 if (i.text) not in (Career):
                                                     Career = (Career + i.text)
                                                     continue
-                                               
+                                       
+                                        print "zsf"      
                                         if ("born") in (i.text):
-                                            a = sent(i.text)
-                                            print a
-                                            for i in range(0,len(a)-1):
-                                                if (("born") in a[i]) and (bornc == 0):
+                                            try:
+                                                a = sent(i.text)
+                                                print a
+                                                for i in range(0,len(a)-1):
+                                                    if (("born") in a[i]) and (bornc == 0):
                                                     
-                                                    summary = a[i] + a[i+1]+"<br>" + summary
-                                                    print "xvgzc"
-                                                    bornc = 1
+                                                        summary = a[i] +". " +a[i+1]+"<br>" + summary
+                                                        print "xvgzc"
+                                                        bornc = 1
+                                            except:
+                                                continue
                                             
                                             
                                        
@@ -582,6 +589,7 @@ def ScienceSearch():
         if (f>10):
             break
         print "Going"
+        print "sdfga"
         url = o[f]
         if ('wikipedia') not in (url):              #Removes Wikipedia Entries
             if ('youtube') not in (url):
@@ -657,3 +665,4 @@ def ScienceSearch():
 def pageNotFound(error):
     nopage = ("<br><br><br><br><br><br>"+"<center><font size =6>Oops...your search timed out. Please refresh your page and try again.</font></center>")
     return (nopage)
+
