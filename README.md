@@ -12,3 +12,5 @@ NOTE:
  The website is currently not functioning right. I have been quite busy recently, and so i haven't gotten the time to 
  review the problems. 
  I'll get to it when possible.
+
+ This is my first Github project, so ignore the lazy commit comments!
